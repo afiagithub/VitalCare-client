@@ -3,9 +3,10 @@ import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import getUser from "../../hooks/getUser";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useState } from "react";
 
 const UpdateProfile = () => {
-    const [currentUser, isLoading] = getUser();
+    const [currentUser, isLoading, refetch] = getUser();
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
 
@@ -18,7 +19,7 @@ const UpdateProfile = () => {
         const dist = form.dist.value;
         const upazila = form.upazila.value;
 
-        const { _id, email, user_id, status } = currentUser;
+        const { _id, email, user_id, status } = currentUser;        
 
         const updatedInfo = {
             name: fullName,
@@ -33,7 +34,8 @@ const UpdateProfile = () => {
         const res = await axiosPublic.put(`/users/${_id}`, updatedInfo);
         console.log(res);
         if (res.data.modifiedCount > 0) {
-            navigate('/')
+            refetch()
+            navigate('/dashboard/profile')
             toast.success("Successfully Registered")
         }
     }
@@ -61,9 +63,9 @@ const UpdateProfile = () => {
                     </div>
                     <div>
                         <label className="block mb-2 text-sm">Blood Group</label>
-                        <select name="bloodType" defaultValue={currentUser.bloodType}
-                            className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800">
-                            <option value="default" disabled>Your Blood Type</option>
+                        <select name="bloodType"
+                        className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800">
+                            <option selected value={`${currentUser.bloodType}`} disabled>{currentUser.bloodType}</option>
                             <option value="A+">A+</option>
                             <option value="A-">A-</option>
                             <option value="B+">B+</option>
@@ -76,9 +78,9 @@ const UpdateProfile = () => {
                     </div>
                     <div>
                         <label className="block mb-2 text-sm">District</label>
-                        <select name="dist" defaultValue={currentUser.dist}
+                        <select name="dist"
                             className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800">
-                            <option value="default" disabled>Your District</option>
+                            <option selected value={`${currentUser.dist}`} disabled>{currentUser.dist}</option>
                             <option value="Dhaka">Dhaka</option>
                             <option value="Gazipur">Gazipur</option>
                             <option value="Gopalganj">Gopalganj</option>
@@ -93,9 +95,9 @@ const UpdateProfile = () => {
                     </div>
                     <div>
                         <label className="block mb-2 text-sm">Upazila</label>
-                        <select name="upazila" defaultValue={currentUser.upazila}
+                        <select name="upazila"
                             className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800">
-                            <option value="default" disabled>Your Upazila</option>
+                            <option selected value={`${currentUser.upazila}`} disabled>{currentUser.upazila}</option>
                             <option value="Dhamrai">Dhamrai</option>
                             <option value="Savar">Savar</option>
                             <option value="Dohar">Dohar</option>
@@ -113,9 +115,9 @@ const UpdateProfile = () => {
                 </div>
                 <div>
                     <input type="submit" value="Update Profile"
-                        className="w-full px-8 py-3 bg-[#ff494a] text-white text-lg font-semibold rounded-xl 
-                            border-2 border-[#ff494a] hover:border-[#ff494a] hover:bg-transparent 
-                            hover:text-[#ff494a]" />
+                        className="w-full px-8 py-3 bg-[#47CCC8] text-[#2D3663] text-lg font-semibold rounded-xl 
+                            border-2 border-[#47CCC8] hover:border-[#47CCC8] hover:bg-transparent 
+                            hover:text-[#47CCC8]" />
                 </div>
             </form>
 

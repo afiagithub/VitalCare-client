@@ -11,9 +11,9 @@ const Profile = () => {
         </div>
     }
     return (
-        <div className="lg:w-full mt-6 md:mt-8 lg:mt-10 flex flex-col lg:flex-row justify-between">
-            <div className="w-1/2 text-center">
-                <img className="rounded-full mx-auto" src={photo} alt="" />
+        <div className="w-full mt-6 md:mt-8 lg:mt-10 flex flex-col lg:flex-row justify-between">
+            <div className="lg:w-1/2 text-center mb-5 lg:mb-0">
+                <img className="w-32 h-32 rounded-full mx-auto object-center" src={photo} alt="" />
                 <h2 className="text-2xl font-bold my-5">Welcome, {name}</h2>
                 <div className="text-left ml-6 md:ml-10 lg:ml-12">
                     <p className="my-5 text-xl font-bold">User Information: </p>
@@ -24,6 +24,8 @@ const Profile = () => {
                     <p className="font-bold">Status: <span className="text-[#20B2AA]">{status}</span></p>
                 </div>
             </div>
+            <hr className="lg:hidden border-[#2D3663] mr-4 mb-5" />
+            <hr className="lg:hidden border-[#2D3663] mr-4" />
             <div className="lg:w-1/2 text-center">
                 <UpdateProfile></UpdateProfile>
             </div>
