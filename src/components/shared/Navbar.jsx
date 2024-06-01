@@ -17,7 +17,7 @@ const Navbar = () => {
         <li className="bg-transparent mx-2 font-bold"><NavLink className={({ isActive }) => isActive ? "border-2 border-[#47CCC8] text-[#47CCC8]"
             : "border-2 border-transparent "} to="/">Home</NavLink></li>
         <li className="bg-transparent mx-2 font-bold"><NavLink className={({ isActive }) => isActive ? "border-2 border-[#47CCC8] text-[#47CCC8]"
-            : "border-2 border-transparent"} to="/about">Dashboard</NavLink></li>
+            : "border-2 border-transparent"} to="/dashboard">Dashboard</NavLink></li>
         <li className="bg-transparent mx-2 font-bold"><NavLink className={({ isActive }) => isActive ? "border-2 border-[#47CCC8] text-[#47CCC8]"
             : "border-2 border-transparent"} to="/assignment">All Tests</NavLink></li>
     </>
