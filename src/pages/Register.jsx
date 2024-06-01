@@ -6,9 +6,11 @@ import { useContext, useState } from "react";
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../providers/AuthProvider";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const Register = () => {
-    const {createUser, updateUserProfile, setUser} = useContext(AuthContext);
+    const { createUser, updateUserProfile, setUser } = useContext(AuthContext);
+    const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
 
     const [show, setShow] = useState(false);
@@ -25,7 +27,7 @@ const Register = () => {
             toast.error("Password must be at least 6 characters long");
             return;
         }
-        else if(!/^(?=.*[a-z])(?=.*[A-Z]).+$/.test(pass)){
+        else if (!/^(?=.*[a-z])(?=.*[A-Z]).+$/.test(pass)) {
             toast.error("Password must have a uppercase and a lowercase letter");
             return;
         }
@@ -36,11 +38,26 @@ const Register = () => {
         createUser(email, pass)
             .then((result) => {
                 updateUserProfile(fullName, photo)
-                    .then(() => {
-                        console.log(result);
+                    .then(async () => {
+                        console.log(result.user);
                         setUser({ ...result.user, photoURL: photo, displayName: fullName })
-                        navigate('/')
-                        toast.success("Successfully Registered")
+
+                        const userInfo = {
+                            name: fullName,
+                            email,
+                            user_id: result.user.uid,
+                            photo,
+                            bloodType,
+                            dist,
+                            upazila,
+                            status: 'active'
+                        }
+                        const res = await axiosPublic.post("/users", userInfo);
+                        console.log(res);
+                        if (res.data.insertedId) {
+                            navigate('/')
+                            toast.success("Successfully Registered")
+                        }
                     });
             })
             .catch((error) => {
@@ -73,30 +90,30 @@ const Register = () => {
                     </div>
                     <div>
                         <label className="block mb-2 text-sm">Blood Group</label>
-                        <select name="bloodType" {...register("bloodType")} defaultValue='default' 
-                        className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800">
+                        <select name="bloodType" {...register("bloodType")} defaultValue='default'
+                            className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800">
                             <option value="default" disabled>Your Blood Type</option>
                             <option value="A+">A+</option>
                             <option value="A-">A-</option>
                             <option value="B+">B+</option>
                             <option value="B-">B-</option>
                             <option value="AB+">AB+</option>
-                            <option value="AB-">AB-</option>                            
+                            <option value="AB-">AB-</option>
                             <option value="O+">O+</option>
                             <option value="O-">O-</option>
                         </select>
                     </div>
                     <div>
                         <label className="block mb-2 text-sm">District</label>
-                        <select name="dist" {...register("dist")} defaultValue='default' 
-                        className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800">
+                        <select name="dist" {...register("dist")} defaultValue='default'
+                            className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800">
                             <option value="default" disabled>Your District</option>
                             <option value="Dhaka">Dhaka</option>
                             <option value="Gazipur">Gazipur</option>
                             <option value="Gopalganj">Gopalganj</option>
                             <option value="Tangail">Tangail</option>
                             <option value="Pabna">Pabna</option>
-                            <option value="Bogra">Bogra</option>                            
+                            <option value="Bogra">Bogra</option>
                             <option value="Rangpur">Rangpur</option>
                             <option value="Barisal">Barisal</option>
                             <option value="Sylhet">Sylhet</option>
@@ -105,8 +122,8 @@ const Register = () => {
                     </div>
                     <div>
                         <label className="block mb-2 text-sm">Upazila</label>
-                        <select name="upazila" {...register("upazila")} defaultValue='default' 
-                        className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800">
+                        <select name="upazila" {...register("upazila")} defaultValue='default'
+                            className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800">
                             <option value="default" disabled>Your Upazila</option>
                             <option value="Dhamrai">Dhamrai</option>
                             <option value="Savar">Savar</option>
@@ -115,7 +132,7 @@ const Register = () => {
                             <option value="Gopalganj Sadar">Gopalganj Sadar</option>
                             <option value="Tangail Sadar">Tangail Sadar</option>
                             <option value="Pabna Sadar">Pabna Sadar</option>
-                            <option value="Bogra Sadar">Bogra Sadar</option>                            
+                            <option value="Bogra Sadar">Bogra Sadar</option>
                             <option value="Rangpur Sadar">Rangpur Sadar</option>
                             <option value="Barisal Sadar">Barisal Sadar</option>
                             <option value="Sylhet Sadar">Sylhet Sadar</option>
