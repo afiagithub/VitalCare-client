@@ -1,0 +1,41 @@
+.navbar{
+    z-index: 10;
+    position: relative;
+}
+
+.group{
+    z-index: 5;
+    position: relative;
+}
+
+.slider{
+    height: 80vh;
+}
+
+.slider h1{
+    line-height: 1.5em;
+}
+
+.slider1{
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("../public/images/first.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.slider2{
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+    url("../public/images/marking.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.slider3{
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
+    url("../public/images/note.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
