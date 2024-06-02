@@ -1,13 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
-import { Link } from "react-router-dom";
 import { MdBlock } from "react-icons/md";
 import { IoPersonOutline } from "react-icons/io5";
 import { BsDownload } from "react-icons/bs";
 import LoadingSpinner from "../../shared/LoadingSpinner";
+import { useState } from "react";
+import UserModal from "./UserModal";
 
 const AllUsers = () => {
     const axiosPublic = useAxiosPublic();
+    const [modal, setModal] = useState({ show: true, data: null });
     const { data: users = [], isLoading } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
@@ -15,6 +17,11 @@ const AllUsers = () => {
             return res.data
         }
     })
+
+    const handleDetails = (id, user) => {
+        document.getElementById('my_modal_1').showModal()
+        setModal({ show: true, data: user })
+    }
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>
     }
@@ -51,7 +58,7 @@ const AllUsers = () => {
                                 <th>
                                     <button className="btn bg-[#4796c899] border-2 border-transparent text-[#2D3663] 
                                     hover:bg-transparent hover:border-[#2D3663]"
-                                        onClick={() => document.getElementById('my_modal_1').showModal()}>
+                                        onClick={() => handleDetails(user._id, user)}>
                                         Details
                                     </button>
                                 </th>
@@ -77,18 +84,10 @@ const AllUsers = () => {
                         }
                     </tbody>
                 </table>
-                <dialog id="my_modal_1" className="modal">
-                    <div className="modal-box">
-                        <h3 className="font-bold text-lg">Hello!</h3>
-                        <p className="py-4">Press ESC key or click the button below to close</p>
-                        <div className="modal-action">
-                            <form method="dialog">
-                                {/* if there is a button in form, it will close the modal */}
-                                <button className="btn">Close</button>
-                            </form>
-                        </div>
-                    </div>
-                </dialog>
+                {modal.show && modal.data &&
+                    <dialog id="my_modal_1" className="modal">
+                        <UserModal data={modal.data}></UserModal>
+                    </dialog>}
             </div>
         </div>
     );
