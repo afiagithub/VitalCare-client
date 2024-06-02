@@ -6,11 +6,12 @@ import { BsDownload } from "react-icons/bs";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import { useState } from "react";
 import UserModal from "./UserModal";
+import Swal from 'sweetalert2'
 
 const AllUsers = () => {
     const axiosPublic = useAxiosPublic();
     const [modal, setModal] = useState({ show: true, data: null });
-    const { data: users = [], isLoading } = useQuery({
+    const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const res = await axiosPublic.get('/users')
@@ -18,9 +19,59 @@ const AllUsers = () => {
         }
     })
 
-    const handleDetails = (id, user) => {
+    const handleDetails = (user) => {
         document.getElementById('my_modal_1').showModal()
         setModal({ show: true, data: user })
+    }
+
+    const handleMakeAdmin = async (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Make Admin"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const res = await axiosPublic.patch(`/users/${id}`);
+                if (res.data.modifiedCount > 0) {
+                    Swal.fire({
+                        title: "Successful!",
+                        text: "User is now Admin.",
+                        icon: "success"
+                    });
+                    refetch()
+                }
+
+            }
+        });
+    }
+
+    const handleBlock = async (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Block User?"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const res = await axiosPublic.patch(`/block-user/${id}`);
+                if (res.data.modifiedCount > 0) {
+                    Swal.fire({
+                        title: "Successful!",
+                        text: "User is now Blocked.",
+                        icon: "success"
+                    });
+                    refetch()
+                }
+
+            }
+        });
     }
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>
@@ -58,21 +109,29 @@ const AllUsers = () => {
                                 <th>
                                     <button className="btn bg-[#4796c899] border-2 border-transparent text-[#2D3663] 
                                     hover:bg-transparent hover:border-[#2D3663]"
-                                        onClick={() => handleDetails(user._id, user)}>
+                                        onClick={() => handleDetails(user)}>
                                         Details
                                     </button>
                                 </th>
                                 <th>
-                                    <button className="btn bg-[#DAA520] border-2 border-transparent text-white font-black text-xl 
-                                    hover:bg-transparent hover:border-[#DAA520] hover:text-[#DAA520]">
-                                        <IoPersonOutline />
-                                    </button>
+                                    {
+                                        user?.role === 'admin' ? 'Admin' : <button onClick={() => handleMakeAdmin(user._id)}
+                                            className="btn bg-[#DAA520] border-2 border-transparent text-white 
+                                        font-black text-xl 
+                                        hover:bg-transparent hover:border-[#DAA520] hover:text-[#DAA520]">
+                                            <IoPersonOutline />
+                                        </button>
+                                    }
                                 </th>
                                 <th>
-                                    <button className="btn bg-red-600 border-2 border-transparent text-white font-black text-xl 
-                                    hover:bg-transparent hover:border-red-600 hover:text-red-600">
-                                        <MdBlock />
-                                    </button>
+                                    {
+                                        user.status === 'blocked' ? 'Blocked' : <button onClick={() => handleBlock(user._id)} 
+                                        className="btn bg-red-600 border-2 border-transparent text-white 
+                                        font-black text-xl 
+                                        hover:bg-transparent hover:border-red-600 hover:text-red-600">
+                                            <MdBlock />
+                                        </button>
+                                    }
                                 </th>
                                 <th>
                                     <button className="btn bg-black border-2 border-transparent text-white font-black text-xl 
