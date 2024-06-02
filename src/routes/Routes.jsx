@@ -32,7 +32,8 @@ const router = createBrowserRouter([
             },
             {
                 path: '/test-details/:id',
-                element: <TestDetail></TestDetail>
+                element: <PrivateRoute><TestDetail></TestDetail></PrivateRoute>,
+                loader: ({ params }) => fetch(`http://localhost:5000/tests/${params.id}`)
             }
         ]
     },

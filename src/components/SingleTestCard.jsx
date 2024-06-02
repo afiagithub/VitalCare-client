@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 
 const SingleTestCard = ({ test }) => {
-    const {_id, image, date, slots, cost, title, short_description } = test;
+    const {_id, image, date, slots, title, short_description } = test;
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
             <figure><img src={image} alt="test" /></figure>
@@ -14,7 +14,7 @@ const SingleTestCard = ({ test }) => {
                     <p>Slot Left: <span className="text-[#20B2AA]">{slots}</span></p>
                 </div>
                 <div className="card-actions justify-end mt-5">
-                    <Link to={`/test-details${_id}`} className="btn bg-[#47CCC8] text-white border-2 border-[#47CCC8] 
+                    <Link to={`/test-details/${_id}`} className="btn bg-[#47CCC8] text-white border-2 border-[#47CCC8] 
                     hover:border-[#47CCC8] hover:bg-transparent hover:text-[#47CCC8] w-full text-lg">View Details</Link>
                 </div>
             </div>
