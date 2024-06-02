@@ -10,6 +10,7 @@ import AllTests from "../pages/AllTests";
 import TestDetail from "../pages/TestDetail";
 import AllTestList from "../components/dashboardCompo/AllTestList";
 import UpdateTest from "../components/dashboardCompo/adminCompo/UpdateTest";
+import AddTest from "../components/dashboardCompo/adminCompo/AddTest";
 
 const router = createBrowserRouter([
     {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
             {
                 path: 'all-test-list',
                 element: <AllTestList></AllTestList>
+            },
+            {
+                path: 'add-test',
+                element: <AddTest></AddTest>
             },
             {
                 path: 'update-test/:id',

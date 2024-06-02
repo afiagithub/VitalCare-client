@@ -5,10 +5,11 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdOutlineDelete } from "react-icons/md";
 import { AiOutlineSchedule } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 const AllTestList = () => {
-    const axiosPublic = useAxiosPublic();
-    const { data: tests = [], isLoading } = useQuery({
+    const axiosPublic = useAxiosPublic();    
+    const { data: tests = [], isLoading, refetch } = useQuery({
         queryKey: ['tests'],
         queryFn: async () => {
             const res = await axiosPublic.get('/tests')
@@ -16,6 +17,30 @@ const AllTestList = () => {
         },
         refetchOnWindowFocus: false,
     })
+
+    const handleDelete = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete this test!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {                
+                const res = await axiosPublic.delete(`/tests/${id}`);
+                if(res.data.deletedCount > 0){
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Test data has been deleted.",
+                        icon: "success"
+                    });
+                }
+                refetch()
+            }
+        });
+    }
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>
     }
@@ -59,7 +84,7 @@ const AllTestList = () => {
                                     </Link>
                                 </th>
                                 <th>
-                                    <button className="btn bg-red-600 border-2 border-transparent text-white font-black text-xl 
+                                    <button onClick={() => handleDelete(test._id)} className="btn bg-red-600 border-2 border-transparent text-white font-black text-xl 
                                     hover:bg-transparent hover:border-red-600 hover:text-red-600">
                                         <MdOutlineDelete />
                                     </button>
