@@ -11,7 +11,7 @@ const Profile = () => {
         </div>
     }
     return (
-        <div className="w-full mt-6 md:mt-8 lg:mt-10 flex flex-col lg:flex-row justify-between">
+        <div className="w-full mt-6 md:mt-8 lg:mt-10 flex flex-col lg:flex-row justify-between px-10 md:px-0">
             <div className="lg:w-1/2 text-center mb-5 lg:mb-0">
                 <img className="w-32 h-32 rounded-full mx-auto object-center" src={photo} alt="" />
                 <h2 className="text-2xl font-bold my-5">Welcome, {name}</h2>

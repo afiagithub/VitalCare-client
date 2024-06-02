@@ -8,6 +8,8 @@ import PrivateRoute from "../protected/PrivateRoute"
 import Profile from "../components/dashboardCompo/Profile";
 import AllTests from "../pages/AllTests";
 import TestDetail from "../pages/TestDetail";
+import AllTestList from "../components/dashboardCompo/AllTestList";
+import UpdateTest from "../components/dashboardCompo/adminCompo/UpdateTest";
 
 const router = createBrowserRouter([
     {
@@ -44,6 +46,15 @@ const router = createBrowserRouter([
             {
                 path: 'profile',
                 element: <Profile></Profile>
+            },
+            {
+                path: 'all-test-list',
+                element: <AllTestList></AllTestList>
+            },
+            {
+                path: 'update-test/:id',
+                element: <UpdateTest></UpdateTest>,
+                loader: ({ params }) => fetch(`http://localhost:5000/tests/${params.id}`)
             }
         ]
     }
