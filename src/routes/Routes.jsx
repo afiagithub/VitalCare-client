@@ -6,6 +6,8 @@ import Login from "../pages/Login";
 import DashBoardLayout from "../layouts/DashBoardLayout";
 import PrivateRoute from "../protected/PrivateRoute"
 import Profile from "../components/dashboardCompo/Profile";
+import AllTests from "../pages/AllTests";
+import TestDetail from "../pages/TestDetail";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +25,14 @@ const router = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login></Login>
+            },
+            {
+                path: '/all-tests',
+                element: <AllTests></AllTests>
+            },
+            {
+                path: '/test-details/:id',
+                element: <TestDetail></TestDetail>
             }
         ]
     },

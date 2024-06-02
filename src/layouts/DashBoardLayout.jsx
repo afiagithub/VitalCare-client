@@ -8,7 +8,7 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useState } from "react";
 
 const DashBoardLayout = () => {
-    const { user, logOut } = useAuth();
+    const { logOut } = useAuth();
     const [show, setShow] = useState(false);
     const handleLogOut = () => {
         logOut()

@@ -19,7 +19,7 @@ const Navbar = () => {
         <li className="bg-transparent mx-2 font-bold"><NavLink className={({ isActive }) => isActive ? "border-2 border-[#47CCC8] text-[#47CCC8]"
             : "border-2 border-transparent"} to="/dashboard">Dashboard</NavLink></li>
         <li className="bg-transparent mx-2 font-bold"><NavLink className={({ isActive }) => isActive ? "border-2 border-[#47CCC8] text-[#47CCC8]"
-            : "border-2 border-transparent"} to="/assignment">All Tests</NavLink></li>
+            : "border-2 border-transparent"} to="/all-tests">All Tests</NavLink></li>
     </>
     return (
         <div className="navbar bg-base-100">
@@ -32,7 +32,7 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">Medicare</a>
+                <a className="btn btn-ghost text-2xl text-[#2D3663] font-bold font-ubuntu">HealthCheck Labs</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">

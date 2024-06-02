@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import getUser from "../../hooks/getUser";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import { useState } from "react";
 
 const UpdateProfile = () => {
     const [currentUser, isLoading, refetch] = getUser();

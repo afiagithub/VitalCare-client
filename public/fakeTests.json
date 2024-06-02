@@ -1,0 +1,29 @@
+[
+    {
+        "id": 1,
+        "image": "https://i.ibb.co/5nZsYWb/blood-test.jpg",
+        "date": "2024-06-01",
+        "slots": 5,
+        "cost": 100,
+        "title": "Complete Blood Count (CBC)",
+        "short_description": "A comprehensive test that measures different components of the blood, including red blood cells, white blood cells, hemoglobin, and platelets."
+    },
+    {
+        "id": 2,
+        "image": "https://i.ibb.co/y8tN1m5/mri.jpg",
+        "date": "2024-06-02",
+        "slots": 3,
+        "cost": 200,
+        "title": "Magnetic Resonance Imaging (MRI)",
+        "short_description": "An imaging test that uses powerful magnets and radio waves to create detailed images of organs and tissues in the body."
+    },
+    {
+        "id": 3,
+        "image": "https://i.ibb.co/jwLYsrr/ultrasound.jpg",
+        "date": "2024-06-03",
+        "slots": 8,
+        "cost": 150,
+        "title": "Ultrasound",
+        "short_description": "A diagnostic imaging technique that uses high-frequency sound waves to create images of the inside of the body, commonly used in prenatal care."
+    }
+]
