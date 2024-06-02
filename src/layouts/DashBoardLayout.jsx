@@ -78,7 +78,7 @@ const DashBoardLayout = () => {
                         {
                             isAdmin ? <ul className="font-semibold space-y-2 font-ubuntu my-4">
                                 <li><Link to='/dashboard/profile'>My Profile</Link></li>
-                                <li><Link>All Users</Link></li>
+                                <li><Link to='/dashboard/all-users'>All Users</Link></li>
                                 <li><Link to='/dashboard/add-test'>Add a Test</Link></li>
                                 <li><Link to='/dashboard/all-test-list'>All Tests</Link></li>
                                 <li><Link>Reservation</Link></li>
