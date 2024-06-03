@@ -13,6 +13,7 @@ import UpdateTest from "../components/dashboardCompo/adminCompo/UpdateTest";
 import AddTest from "../components/dashboardCompo/adminCompo/AddTest";
 import AllUsers from "../components/dashboardCompo/adminCompo/AllUsers";
 import AdminRoute from "../routes/AdminRoute"
+import BlockedRoute from "./BlockedRoute";
 
 const router = createBrowserRouter([
     {
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
     },
     {
         path: 'dashboard',
-        element: <PrivateRoute><DashBoardLayout></DashBoardLayout></PrivateRoute>,
+        element: <PrivateRoute><BlockedRoute><DashBoardLayout></DashBoardLayout></BlockedRoute></PrivateRoute>,
         children: [
             {
                 path: 'profile',

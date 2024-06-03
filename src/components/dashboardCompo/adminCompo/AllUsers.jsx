@@ -8,9 +8,11 @@ import UserModal from "./UserModal";
 import Swal from 'sweetalert2'
 import { jsPDF } from "jspdf";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const AllUsers = () => {
     const axiosSecure = useAxiosSecure();
+    const axiosPublic = useAxiosPublic();
     const [modal, setModal] = useState({ show: true, data: null });
     const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['users'],
@@ -20,9 +22,9 @@ const AllUsers = () => {
         }
     })
 
-    const handleDetails = (user) => {
+    const handleDetails = async (user) => {
+        await setModal({ show: true, data: user })
         document.getElementById('my_modal_1').showModal()
-        setModal({ show: true, data: user })
     }
 
     const handleMakeAdmin = async (id) => {
@@ -76,7 +78,7 @@ const AllUsers = () => {
     }
 
     const handleDownload = (user) => {
-        const doc = new jsPDF('p', 'pt')        
+        const doc = new jsPDF('p', 'pt')
         doc.addImage(user.photo, 'PNG', 30, 30, 100, 100);
         doc.text(150, 80, `${user.name}`)
         doc.text(150, 100, `Email: ${user.email}`)

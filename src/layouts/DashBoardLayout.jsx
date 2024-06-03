@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
@@ -8,10 +8,13 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useState } from "react";
 import useAdmin from "../hooks/useAdmin";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
+import useBlocked from "../hooks/useBlocked";
 
 const DashBoardLayout = () => {
     const { logOut } = useAuth();
     const [isAdmin, isAdminLoading] = useAdmin();
+    const [isBlocked, isUserLoading] = useBlocked();
+    const navigate = useNavigate();
     if (isAdminLoading) {
         <LoadingSpinner></LoadingSpinner>
     }
