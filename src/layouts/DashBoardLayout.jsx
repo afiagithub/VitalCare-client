@@ -6,10 +6,15 @@ import { IoLogInOutline } from "react-icons/io5";
 import { IoMdMenu } from "react-icons/io";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useState } from "react";
+import useAdmin from "../hooks/useAdmin";
+import LoadingSpinner from "../components/shared/LoadingSpinner";
 
 const DashBoardLayout = () => {
     const { logOut } = useAuth();
-    const isAdmin = true;
+    const [isAdmin, isAdminLoading] = useAdmin();
+    if (isAdminLoading) {
+        <LoadingSpinner></LoadingSpinner>
+    }
     const [show, setShow] = useState(false);
     const handleLogOut = () => {
         logOut()

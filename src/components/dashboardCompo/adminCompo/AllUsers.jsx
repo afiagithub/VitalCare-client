@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { MdBlock } from "react-icons/md";
 import { IoPersonOutline } from "react-icons/io5";
 import { BsDownload } from "react-icons/bs";
@@ -7,14 +6,16 @@ import LoadingSpinner from "../../shared/LoadingSpinner";
 import { useState } from "react";
 import UserModal from "./UserModal";
 import Swal from 'sweetalert2'
+import { jsPDF } from "jspdf";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const AllUsers = () => {
-    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const [modal, setModal] = useState({ show: true, data: null });
     const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await axiosPublic.get('/users')
+            const res = await axiosSecure.get('/users')
             return res.data
         }
     })
@@ -73,6 +74,18 @@ const AllUsers = () => {
             }
         });
     }
+
+    const handleDownload = (user) => {
+        const doc = new jsPDF('p', 'pt')        
+        doc.addImage(user.photo, 'PNG', 30, 30, 100, 100);
+        doc.text(150, 80, `${user.name}`)
+        doc.text(150, 100, `Email: ${user.email}`)
+        doc.text(30, 170, `BloodType: ${user.bloodType}`)
+        doc.text(30, 190, `District: ${user.dist}`)
+        doc.text(30, 210, `Upazila: ${user.upazila}`)
+        doc.text(30, 230, `Status: ${user.status}`)
+        doc.save('user.pdf')
+    }
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>
     }
@@ -110,7 +123,7 @@ const AllUsers = () => {
                                     <button className="btn bg-[#4796c899] border-2 border-transparent text-[#2D3663] 
                                     hover:bg-transparent hover:border-[#2D3663]"
                                         onClick={() => handleDetails(user)}>
-                                        Details
+                                        See Info
                                     </button>
                                 </th>
                                 <th>
@@ -125,8 +138,8 @@ const AllUsers = () => {
                                 </th>
                                 <th>
                                     {
-                                        user.status === 'blocked' ? 'Blocked' : <button onClick={() => handleBlock(user._id)} 
-                                        className="btn bg-red-600 border-2 border-transparent text-white 
+                                        user.status === 'blocked' ? 'Blocked' : <button onClick={() => handleBlock(user._id)}
+                                            className="btn bg-red-600 border-2 border-transparent text-white 
                                         font-black text-xl 
                                         hover:bg-transparent hover:border-red-600 hover:text-red-600">
                                             <MdBlock />
@@ -134,7 +147,7 @@ const AllUsers = () => {
                                     }
                                 </th>
                                 <th>
-                                    <button className="btn bg-black border-2 border-transparent text-white font-black text-xl 
+                                    <button onClick={() => handleDownload(user)} className="btn bg-black border-2 border-transparent text-white font-black text-xl 
                                     hover:bg-transparent hover:border-black hover:text-black">
                                         <BsDownload />
                                     </button>
@@ -145,7 +158,7 @@ const AllUsers = () => {
                 </table>
                 {modal.show && modal.data &&
                     <dialog id="my_modal_1" className="modal">
-                        <UserModal data={modal.data}></UserModal>
+                        <UserModal data={modal.data} ></UserModal>
                     </dialog>}
             </div>
         </div>

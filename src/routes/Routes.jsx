@@ -12,6 +12,7 @@ import AllTestList from "../components/dashboardCompo/AllTestList";
 import UpdateTest from "../components/dashboardCompo/adminCompo/UpdateTest";
 import AddTest from "../components/dashboardCompo/adminCompo/AddTest";
 import AllUsers from "../components/dashboardCompo/adminCompo/AllUsers";
+import AdminRoute from "../routes/AdminRoute"
 
 const router = createBrowserRouter([
     {
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'all-users',
-                element: <AllUsers></AllUsers>
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
             },
             {
                 path: 'all-test-list',
