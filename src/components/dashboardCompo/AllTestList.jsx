@@ -90,10 +90,10 @@ const AllTestList = () => {
                                     </button>
                                 </th>
                                 <th>
-                                    <button className="btn bg-[#DAA520] border-2 border-transparent text-white font-black text-xl 
+                                    <Link to={`/dashboard/reservation/${test._id}`} className="btn bg-[#DAA520] border-2 border-transparent text-white font-black text-xl 
                                     hover:bg-transparent hover:border-[#DAA520] hover:text-[#DAA520]">
                                         <AiOutlineSchedule />
-                                    </button>
+                                    </Link>
                                 </th>
                             </tr>)
                         }

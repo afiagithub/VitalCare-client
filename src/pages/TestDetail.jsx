@@ -2,6 +2,8 @@ import { useLoaderData } from "react-router-dom";
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from "@stripe/react-stripe-js";
 import BookingForm from "../components/BookingForm";
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const TestDetail = () => {
     const testData = useLoaderData();
@@ -9,8 +11,13 @@ const TestDetail = () => {
 
     const stripePromise = loadStripe(import.meta.env.VITE_PAY_PUBLISH_KEY);
 
-    const handleBooking = () => {
-        document.getElementById('my_modal_1').showModal()
+    const handleBooking = () => {        
+        if(slots > 0){
+            document.getElementById('my_modal_1').showModal()
+        }
+        else{
+            return toast.error("Sorry! this test has no slot left");
+        }
     }
     return (
         <div className="p-5 mx-auto sm:p-10 md:p-16 dark:bg-gray-100 dark:text-gray-800">
@@ -30,7 +37,8 @@ const TestDetail = () => {
                         <p>Slot Left: <span className="text-[#20B2AA]">{slots}</span></p>
                         <p>Cost: <span className="text-[#20B2AA]">${cost}</span></p>
                     </div>
-                    <button onClick={handleBooking} className="btn bg-[#2D3663] text-white border-2 border-[#2D3663] 
+                    <button onClick={handleBooking}
+                    className="btn bg-[#2D3663] text-white border-2 border-[#2D3663] 
                     hover:border-[#2D3663] hover:bg-transparent hover:text-[#2D3663]">Book Now</button>
                     <dialog id="my_modal_1" className="modal">
                         <div className="modal-box">

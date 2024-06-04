@@ -1,17 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
-import useAuth from "../../hooks/useAuth";
+import { useParams } from "react-router-dom";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { MdOutlineDelete } from "react-icons/md";
-import LoadingSpinner from "../shared/LoadingSpinner";
+import { IoDocumentAttachOutline } from "react-icons/io5";
 import Swal from 'sweetalert2'
+import LoadingSpinner from "../../shared/LoadingSpinner";
 
-const Appointments = () => {
+const Reservations = () => {
+    const { id } = useParams();
     const axiosSecure = useAxiosSecure();
-    const { user } = useAuth()
-    const { data: appointments = [], isLoading, refetch } = useQuery({
-        queryKey: ['appointments'],
+    const { data: bookings = [], isLoading, refetch } = useQuery({
+        queryKey: ['bookings'],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/reserve/${user.email}`)
+            const res = await axiosSecure.get(`/all-reserve/${id}`)
             return res.data
         }
     })
@@ -31,7 +32,7 @@ const Appointments = () => {
                 if(res.data.deletedCount > 0){
                     Swal.fire({
                         title: "Deleted!",
-                        text: "Appointment has been deleted.",
+                        text: "Reservation has been deleted.",
                         icon: "success"
                     });
                 }
@@ -43,39 +44,49 @@ const Appointments = () => {
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>
     }
+
     return (
         <div className="z-0 mt-10 px-10 md:px-0">
-            <h1 className="text-4xl font-bold font-ubuntu text-center mb-10">Upcoming Appointments</h1>
+            <h1 className="text-4xl font-bold font-ubuntu text-center mb-10">Reservations</h1>
             <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}
                     <thead>
                         <tr>
-                            <th>Test</th>
+                            <th>User Name</th>
+                            <th>User Email</th>
                             <th>Date</th>
                             <th>Time</th>
                             <th>Cost</th>
                             <th>Cancel Booking</th>
+                            <th>Submit Report</th>
                         </tr>
                     </thead>
                     <tbody>
                         {/* row 1 */}
                         {
-                            appointments.map(appoint => <tr key={appoint._id}>
+                            bookings.map(book => <tr key={book._id}>
                                 <td>
                                     <div className="flex items-center gap-3">
                                         <div>
-                                            <div className="font-bold">{appoint.title}</div>
+                                            <div className="font-bold">{book?.name}</div>
                                         </div>
                                     </div>
                                 </td>
-                                <td>{appoint.date}</td>
-                                <td>{appoint.time}</td>
-                                <td>BDT {appoint.price}</td>
+                                <td>{book?.email}</td>
+                                <td>{book.date}</td>
+                                <td>{book.time}</td>
+                                <td>BDT {book.price}</td>
                                 <th>
-                                    <button onClick={() => handleDelete(appoint._id)} className="btn bg-red-600 border-2 border-transparent text-white font-black text-xl 
+                                    <button onClick={() => handleDelete(book._id)} className="btn bg-red-600 border-2 border-transparent text-white font-black text-xl 
                                     hover:bg-transparent hover:border-red-600 hover:text-red-600">
                                         <MdOutlineDelete />
+                                    </button>
+                                </th>
+                                <th>
+                                    <button onClick={() => handleDelete(book._id)} className="btn bg-[#4796c899] border-2 border-transparent text-[#2D3663] 
+                                    hover:bg-transparent hover:border-[#2D3663] text-lg">
+                                        <IoDocumentAttachOutline />
                                     </button>
                                 </th>
                             </tr>)
@@ -87,4 +98,4 @@ const Appointments = () => {
     );
 };
 
-export default Appointments;
+export default Reservations;

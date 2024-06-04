@@ -15,6 +15,7 @@ import AllUsers from "../components/dashboardCompo/adminCompo/AllUsers";
 import AdminRoute from "../routes/AdminRoute"
 import BlockedRoute from "./BlockedRoute";
 import Appointments from "../components/dashboardCompo/Appointments";
+import Reservations from "../components/dashboardCompo/adminCompo/Reservations";
 
 const router = createBrowserRouter([
     {
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
                 path: 'update-test/:id',
                 element: <UpdateTest></UpdateTest>,
                 loader: ({ params }) => fetch(`http://localhost:5000/tests/${params.id}`)
+            },
+            {
+                path: 'reservation/:id',
+                element: <Reservations></Reservations>
             }
         ]
     }
