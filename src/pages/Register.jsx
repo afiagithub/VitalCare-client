@@ -7,11 +7,21 @@ import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../providers/AuthProvider";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import useDistrict from "../hooks/useDistrict";
+import LoadingSpinner from "../components/shared/LoadingSpinner";
+import useUpazilla from "../hooks/useUpazilla";
 
 const Register = () => {
+    const img_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+    const image_hosting_api = `https://api.imgbb.com/1/upload?key=${img_hosting_key}`;
+
     const { createUser, updateUserProfile, setUser } = useContext(AuthContext);
+
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
+
+    const [districtData, distLoading] = useDistrict();
+    const [upazilaData, upzilaLoad] = useUpazilla();
 
     const [show, setShow] = useState(false);
     const handleToggle = () => {
@@ -20,49 +30,62 @@ const Register = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         const { fullName, email, pass, confirmPass, photo, bloodType, dist, upazila } = data;
-        console.log(data)
-        if (pass.length < 6) {
-            toast.error("Password must be at least 6 characters long");
-            return;
-        }
-        else if (!/^(?=.*[a-z])(?=.*[A-Z]).+$/.test(pass)) {
-            toast.error("Password must have a uppercase and a lowercase letter");
-            return;
-        }
-        else if (pass !== confirmPass) {
-            toast.error("Password does not match Confirm Password");
-            return;
-        }
-        createUser(email, pass)
-            .then((result) => {
-                updateUserProfile(fullName, photo)
-                    .then(async () => {
-                        console.log(result.user);
-                        setUser({ ...result.user, photoURL: photo, displayName: fullName })
+        const imageFile = { image: data.photo[0] }
+        const res = await axiosPublic.post(image_hosting_api, imageFile, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        });
+        console.log(res.data)
+        if (res.data.success) {
+            const photoURL = res.data.data.display_url;
+            if (pass.length < 6) {
+                toast.error("Password must be at least 6 characters long");
+                return;
+            }
+            else if (!/^(?=.*[a-z])(?=.*[A-Z]).+$/.test(pass)) {
+                toast.error("Password must have a uppercase and a lowercase letter");
+                return;
+            }
+            else if (pass !== confirmPass) {
+                toast.error("Password does not match Confirm Password");
+                return;
+            }
+            createUser(email, pass)
+                .then((result) => {
+                    updateUserProfile(fullName, photoURL)
+                        .then(async () => {
+                            console.log(result.user);
+                            setUser({ ...result.user, photoURL: photoURL, displayName: fullName })
 
-                        const userInfo = {
-                            name: fullName,
-                            email,
-                            user_id: result.user.uid,
-                            photo,
-                            bloodType,
-                            dist,
-                            upazila,
-                            status: 'active'
-                        }
-                        const res = await axiosPublic.post("/users", userInfo);
-                        console.log(res);
-                        if (res.data.insertedId) {
-                            navigate('/')
-                            toast.success("Successfully Registered")
-                        }
-                    });
-            })
-            .catch((error) => {
-                console.log(error.message)
-            });
+                            const userInfo = {
+                                name: fullName,
+                                email,
+                                user_id: result.user.uid,
+                                photo: photoURL,
+                                bloodType,
+                                dist,
+                                upazila,
+                                status: 'active'
+                            }
+                            const res = await axiosPublic.post("/users", userInfo);
+                            console.log(res);
+                            if (res.data.insertedId) {
+                                navigate('/')
+                                toast.success("Successfully Registered")
+                            }
+                        });
+                })
+                .catch((error) => {
+                    console.log(error.message)
+                });
+        }
+
+    }
+    if(distLoading || upzilaLoad){
+        return <LoadingSpinner></LoadingSpinner>
     }
     return (
         <div className="flex flex-col max-w-md mx-auto p-6 rounded-md sm:p-10 mb-10">
@@ -85,8 +108,9 @@ const Register = () => {
                     {errors.email && <span className="text-red-700 font-semibold">This field is required</span>}
                     <div>
                         <label className="block mb-2 text-sm">Photo URL</label>
-                        <input type="text" name="photo" {...register("photo")}
-                            className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800" />
+                        <input type="file" name="photo" {...register("photo")}
+                            className="file-input file-input-bordered w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800" />
+
                     </div>
                     <div>
                         <label className="block mb-2 text-sm">Blood Group</label>
@@ -108,16 +132,10 @@ const Register = () => {
                         <select name="dist" {...register("dist")} defaultValue='default'
                             className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800">
                             <option value="default" disabled>Your District</option>
-                            <option value="Dhaka">Dhaka</option>
-                            <option value="Gazipur">Gazipur</option>
-                            <option value="Gopalganj">Gopalganj</option>
-                            <option value="Tangail">Tangail</option>
-                            <option value="Pabna">Pabna</option>
-                            <option value="Bogra">Bogra</option>
-                            <option value="Rangpur">Rangpur</option>
-                            <option value="Barisal">Barisal</option>
-                            <option value="Sylhet">Sylhet</option>
-                            <option value="Comilla">Comilla</option>
+                            {
+                                districtData.map(district => 
+                                <option key={district.id} value={district.name}>{district.name}</option>)
+                            }
                         </select>
                     </div>
                     <div>
@@ -125,18 +143,10 @@ const Register = () => {
                         <select name="upazila" {...register("upazila")} defaultValue='default'
                             className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800">
                             <option value="default" disabled>Your Upazila</option>
-                            <option value="Dhamrai">Dhamrai</option>
-                            <option value="Savar">Savar</option>
-                            <option value="Dohar">Dohar</option>
-                            <option value="Gazipur Sadar">Gazipur Sadar</option>
-                            <option value="Gopalganj Sadar">Gopalganj Sadar</option>
-                            <option value="Tangail Sadar">Tangail Sadar</option>
-                            <option value="Pabna Sadar">Pabna Sadar</option>
-                            <option value="Bogra Sadar">Bogra Sadar</option>
-                            <option value="Rangpur Sadar">Rangpur Sadar</option>
-                            <option value="Barisal Sadar">Barisal Sadar</option>
-                            <option value="Sylhet Sadar">Sylhet Sadar</option>
-                            <option value="Comilla Sadar">Comilla Sadar</option>
+                            {
+                                upazilaData.map(upazila => 
+                                <option key={upazila.id} value={upazila.name}>{upazila.name}</option>)
+                            }
                         </select>
                     </div>
                     <div className="relative">

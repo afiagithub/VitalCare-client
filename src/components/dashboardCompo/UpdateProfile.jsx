@@ -3,28 +3,52 @@ import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import getUser from "../../hooks/getUser";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useDistrict from "../../hooks/useDistrict";
+import useUpazilla from "../../hooks/useUpazilla";
 
 const UpdateProfile = () => {
-    const [currentUser, isLoading, refetch] = getUser();
+    const img_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+    const image_hosting_api = `https://api.imgbb.com/1/upload?key=${img_hosting_key}`;
+
+    const [currentUser, isLoading, refetch] = getUser(); 
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
+
+    const [districtData, distLoading] = useDistrict();
+    const [upazilaData, upzilaLoad] = useUpazilla();
+    
 
     const handleUpdate = async (e) => {
         e.preventDefault();
         const form = e.target;
         const fullName = form.fullName.value;
-        const photoUrl = form.photoUrl.value;
         const bloodType = form.bloodType.value;
         const dist = form.dist.value;
         const upazila = form.upazila.value;
+        const image = form.photo.files[0];
+        let photoURL = '';
 
-        const { _id, email, user_id, status } = currentUser;        
+        if (image) {
+            const imageFile = { image };
+            const resImg = await axiosPublic.post(image_hosting_api, imageFile, {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            })
+            if (resImg.data.success) {
+                photoURL = resImg.data.data.display_url;
+            }            
+        } 
+        else {
+            photoURL = currentUser.photo;
+        }       
+        const { _id, email, user_id, status } = currentUser;
 
         const updatedInfo = {
             name: fullName,
             email,
             user_id,
-            photo: photoUrl,
+            photo: photoURL,
             bloodType,
             dist,
             upazila,
@@ -38,7 +62,7 @@ const UpdateProfile = () => {
             toast.success("Successfully Registered")
         }
     }
-    if (isLoading) {
+    if (isLoading || distLoading || upzilaLoad) {
         <div className="text-center flex flex-col items-center justify-center h-[100vh]">
             <span className="loading loading-spinner loading-lg text-primary"></span>
         </div>
@@ -57,13 +81,13 @@ const UpdateProfile = () => {
                     </div>
                     <div>
                         <label className="block mb-2 text-sm">Photo URL</label>
-                        <input type="text" name="photoUrl" defaultValue={currentUser.photo}
-                            className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800" />
+                        <input type="file" name="photo"
+                            className="file-input file-input-bordered w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800" />
                     </div>
                     <div>
                         <label className="block mb-2 text-sm">Blood Group</label>
                         <select name="bloodType"
-                        className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800">
+                            className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800">
                             <option selected value={`${currentUser.bloodType}`} disabled>{currentUser.bloodType}</option>
                             <option value="A+">A+</option>
                             <option value="A-">A-</option>
@@ -80,16 +104,10 @@ const UpdateProfile = () => {
                         <select name="dist"
                             className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800">
                             <option selected value={`${currentUser.dist}`} disabled>{currentUser.dist}</option>
-                            <option value="Dhaka">Dhaka</option>
-                            <option value="Gazipur">Gazipur</option>
-                            <option value="Gopalganj">Gopalganj</option>
-                            <option value="Tangail">Tangail</option>
-                            <option value="Pabna">Pabna</option>
-                            <option value="Bogra">Bogra</option>
-                            <option value="Rangpur">Rangpur</option>
-                            <option value="Barisal">Barisal</option>
-                            <option value="Sylhet">Sylhet</option>
-                            <option value="Comilla">Comilla</option>
+                            {
+                                districtData.map(district => 
+                                    <option key={district.id} value={district.name}>{district.name}</option>)
+                            }
                         </select>
                     </div>
                     <div>
@@ -97,18 +115,10 @@ const UpdateProfile = () => {
                         <select name="upazila"
                             className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800">
                             <option selected value={`${currentUser.upazila}`} disabled>{currentUser.upazila}</option>
-                            <option value="Dhamrai">Dhamrai</option>
-                            <option value="Savar">Savar</option>
-                            <option value="Dohar">Dohar</option>
-                            <option value="Gazipur Sadar">Gazipur Sadar</option>
-                            <option value="Gopalganj Sadar">Gopalganj Sadar</option>
-                            <option value="Tangail Sadar">Tangail Sadar</option>
-                            <option value="Pabna Sadar">Pabna Sadar</option>
-                            <option value="Bogra Sadar">Bogra Sadar</option>
-                            <option value="Rangpur Sadar">Rangpur Sadar</option>
-                            <option value="Barisal Sadar">Barisal Sadar</option>
-                            <option value="Sylhet Sadar">Sylhet Sadar</option>
-                            <option value="Comilla Sadar">Comilla Sadar</option>
+                            {
+                                upazilaData.map(upazila => 
+                                <option key={upazila.id} value={upazila.name}>{upazila.name}</option>)
+                            }
                         </select>
                     </div>
                 </div>

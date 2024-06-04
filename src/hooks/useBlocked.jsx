@@ -9,7 +9,7 @@ const useBlocked = () => {
     const {data: isBlocked, isPending: isUserLoading} = useQuery({
         queryKey: [user?.email, 'isBlocked'],
         queryFn: async() => {
-            const res =  await axiosSecure(`/users/blocked/${user.email}`);
+            const res =  await axiosSecure(`/userlist/blocked/${user.email}`);
             console.log(res.data);
             return res.data?.blocked;
         }
