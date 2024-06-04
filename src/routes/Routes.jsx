@@ -14,6 +14,7 @@ import AddTest from "../components/dashboardCompo/adminCompo/AddTest";
 import AllUsers from "../components/dashboardCompo/adminCompo/AllUsers";
 import AdminRoute from "../routes/AdminRoute"
 import BlockedRoute from "./BlockedRoute";
+import Appointments from "../components/dashboardCompo/Appointments";
 
 const router = createBrowserRouter([
     {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
             {
                 path: 'profile',
                 element: <Profile></Profile>
+            },
+            {
+                path: 'appointment',
+                element: <Appointments></Appointments>
             },
             {
                 path: 'all-users',

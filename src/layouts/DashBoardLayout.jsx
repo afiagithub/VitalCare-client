@@ -96,7 +96,7 @@ const DashBoardLayout = () => {
                             </ul> :
                                 <ul className="font-semibold space-y-2 font-ubuntu my-4">
                                     <li><Link to='/dashboard/profile'>My Profile</Link></li>
-                                    <li><Link>My Upcoming Appointments</Link></li>
+                                    <li><Link to='/dashboard/appointment'>My Upcoming Appointments</Link></li>
                                     <li><Link>Test Results</Link></li>
                                 </ul>
                         }
