@@ -18,6 +18,7 @@ import Appointments from "../components/dashboardCompo/Appointments";
 import Reservations from "../components/dashboardCompo/adminCompo/Reservations";
 import TestReport from "../components/dashboardCompo/adminCompo/TestReport";
 import UserTestReport from "../components/dashboardCompo/UserTestReport";
+import AllBanners from "../components/dashboardCompo/adminCompo/AllBanners";
 
 const router = createBrowserRouter([
     {
@@ -87,6 +88,10 @@ const router = createBrowserRouter([
             {
                 path: 'report/:id',
                 element: <TestReport></TestReport>
+            },
+            {
+                path: 'banners',
+                element: <AllBanners></AllBanners>
             }
         ]
     }
