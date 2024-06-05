@@ -17,6 +17,7 @@ import BlockedRoute from "./BlockedRoute";
 import Appointments from "../components/dashboardCompo/Appointments";
 import Reservations from "../components/dashboardCompo/adminCompo/Reservations";
 import TestReport from "../components/dashboardCompo/adminCompo/TestReport";
+import UserTestReport from "../components/dashboardCompo/UserTestReport";
 
 const router = createBrowserRouter([
     {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
             {
                 path: 'appointment',
                 element: <Appointments></Appointments>
+            },
+            {
+                path: 'test-result',
+                element: <UserTestReport></UserTestReport>
             },
             {
                 path: 'all-users',

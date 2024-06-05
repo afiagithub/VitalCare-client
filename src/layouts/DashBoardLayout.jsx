@@ -51,7 +51,6 @@ const DashBoardLayout = () => {
                                 <li><Link>All User</Link></li>
                                 <li><Link>Add a Test</Link></li>
                                 <li><Link to='/dashboard/all-test-list'>All Tests</Link></li>
-                                <li><Link>Reservation</Link></li>
                                 <li><Link>Add Banner</Link></li>
                                 <li><Link>All Banners</Link></li>
                                 <li><Link>Statistics</Link></li>
@@ -89,7 +88,6 @@ const DashBoardLayout = () => {
                                 <li><Link to='/dashboard/all-users'>All Users</Link></li>
                                 <li><Link to='/dashboard/add-test'>Add a Test</Link></li>
                                 <li><Link to='/dashboard/all-test-list'>All Tests</Link></li>
-                                <li><Link>Reservation</Link></li>
                                 <li><Link>Add Banner</Link></li>
                                 <li><Link>All Banners</Link></li>
                                 <li><Link>Statistics</Link></li>
@@ -97,7 +95,7 @@ const DashBoardLayout = () => {
                                 <ul className="font-semibold space-y-2 font-ubuntu my-4">
                                     <li><Link to='/dashboard/profile'>My Profile</Link></li>
                                     <li><Link to='/dashboard/appointment'>My Upcoming Appointments</Link></li>
-                                    <li><Link>Test Results</Link></li>
+                                    <li><Link to='/dashboard/test-result'>Test Results</Link></li>
                                 </ul>
                         }
                         <hr />

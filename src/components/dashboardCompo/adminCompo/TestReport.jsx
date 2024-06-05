@@ -26,6 +26,7 @@ const TestReport = () => {
                 patient_email: reserves?.email,
                 reserve_id: reserves._id,
                 test_id: reserves.test_id,
+                test_title: reserves.title,
                 pay_id: reserves.transactionId,
                 date: reserves.date,
                 report: reportUrl,
