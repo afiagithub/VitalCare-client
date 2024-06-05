@@ -16,6 +16,7 @@ import AdminRoute from "../routes/AdminRoute"
 import BlockedRoute from "./BlockedRoute";
 import Appointments from "../components/dashboardCompo/Appointments";
 import Reservations from "../components/dashboardCompo/adminCompo/Reservations";
+import TestReport from "../components/dashboardCompo/adminCompo/TestReport";
 
 const router = createBrowserRouter([
     {
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
             {
                 path: 'reservation/:id',
                 element: <Reservations></Reservations>
+            },
+            {
+                path: 'report/:id',
+                element: <TestReport></TestReport>
             }
         ]
     }

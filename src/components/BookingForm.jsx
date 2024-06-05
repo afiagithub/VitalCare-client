@@ -2,6 +2,8 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import useAxiosSecure from "../hooks/useAxiosSecure"
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
+import useAxiosPublic from "../hooks/useAxiosPublic";
+import { useNavigate } from "react-router-dom";
 
 const BookingForm = ({ testData }) => {
     const stripe = useStripe();
@@ -10,8 +12,10 @@ const BookingForm = ({ testData }) => {
     const [clientSecret, setClientSecret] = useState([])
     const [transId, setTransId] = useState('')
     const axiosSecure = useAxiosSecure();
+    const axiosPublic = useAxiosPublic();
     const { user } = useAuth();
     const price = testData.cost;
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (price > 0) {
@@ -24,7 +28,18 @@ const BookingForm = ({ testData }) => {
     }, [axiosSecure, price])
 
     const handleSubmit = async (event) => {
+        let testPrice = parseInt(testData.cost);
         event.preventDefault();
+        const promoCode = event.target.promo.value;
+        if(promoCode){
+            console.log(promoCode);
+            if(promoCode === 'new24'){
+                testPrice = testPrice - (testPrice * 0.1);                
+            }
+            else if(promoCode === 'firstPurchase'){
+                testPrice = testPrice - (testPrice * 0.15);                
+            }
+        }
 
         if (!stripe || !elements) {
             return;
@@ -69,7 +84,7 @@ const BookingForm = ({ testData }) => {
                 const booking = {
                     email: user?.email,
                     name: user?.displayName || 'anonymous',
-                    price,
+                    price: testPrice,
                     transactionId: paymentIntent.id,
                     test_id: testData._id,
                     date: testData.date,
@@ -79,13 +94,36 @@ const BookingForm = ({ testData }) => {
                 }
 
                 const res = await axiosSecure.post('/reserve', booking);
-                console.log(res.data);
+                if(res.data.insertedId){
+                    const newSlots = parseInt(testData.slots);
+                    const updatedSlots = newSlots - 1;
+                    const updatedTest = {
+                        slots: updatedSlots.toString()
+                    };
+                    await axiosPublic.patch(`/booked-test/${testData._id}`, updatedTest)
+                    navigate('/dashboard/appointment')
+                }
             }
         }
     };
     return (
         <div>
             <form onSubmit={handleSubmit}>
+                <div className="flex flex-row justify-evenly items-center">
+                    <div className="text-center text-white bg-[#2D3663] rounded-xl p-4">
+                        <h3 className="text-2xl font-ubuntu">new24</h3>
+                        <p className="font-semibold">10% Discount</p>
+                    </div>
+                    <div className="text-center text-white bg-[#2D3663] rounded-xl p-4">
+                        <h3 className="text-2xl font-ubuntu">firstPurchase</h3>
+                        <p className="font-semibold">15% Discount</p>
+                    </div>
+                </div>
+            <div className="my-5">
+                <label>Promocode: </label> <br />
+                <input className="border-2 border-gray-300 p-3 rounded-xl" name="promo" 
+                type="text" placeholder="Enter your promocode"/>
+            </div>
                 <CardElement
                     options={{
                         style: {
@@ -102,7 +140,7 @@ const BookingForm = ({ testData }) => {
                         },
                     }}
                 />
-                <button type="submit" disabled={!stripe || !clientSecret} className="btn btn-primary">
+                <button type="submit" disabled={!stripe || !clientSecret} className="btn btn-primary my-3">
                     Pay
                 </button>
                 <p>{error}</p>

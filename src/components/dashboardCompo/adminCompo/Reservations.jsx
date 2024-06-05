@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { MdOutlineDelete } from "react-icons/md";
 import { IoDocumentAttachOutline } from "react-icons/io5";
@@ -84,10 +84,10 @@ const Reservations = () => {
                                     </button>
                                 </th>
                                 <th>
-                                    <button onClick={() => handleDelete(book._id)} className="btn bg-[#4796c899] border-2 border-transparent text-[#2D3663] 
+                                    <Link to={`/dashboard/report/${book._id}`} className="btn bg-[#4796c899] border-2 border-transparent text-[#2D3663] 
                                     hover:bg-transparent hover:border-[#2D3663] text-lg">
                                         <IoDocumentAttachOutline />
-                                    </button>
+                                    </Link>
                                 </th>
                             </tr>)
                         }
