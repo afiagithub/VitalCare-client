@@ -19,6 +19,7 @@ import Reservations from "../components/dashboardCompo/adminCompo/Reservations";
 import TestReport from "../components/dashboardCompo/adminCompo/TestReport";
 import UserTestReport from "../components/dashboardCompo/UserTestReport";
 import AllBanners from "../components/dashboardCompo/adminCompo/AllBanners";
+import AddBanner from "../components/dashboardCompo/adminCompo/AddBanner";
 
 const router = createBrowserRouter([
     {
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
             {
                 path: 'banners',
                 element: <AllBanners></AllBanners>
+            },
+            {
+                path: 'add-banner',
+                element: <AddBanner></AddBanner>
             }
         ]
     }

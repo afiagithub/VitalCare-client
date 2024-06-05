@@ -88,7 +88,7 @@ const DashBoardLayout = () => {
                                 <li><Link to='/dashboard/all-users'>All Users</Link></li>
                                 <li><Link to='/dashboard/add-test'>Add a Test</Link></li>
                                 <li><Link to='/dashboard/all-test-list'>All Tests</Link></li>
-                                <li><Link >Add Banner</Link></li>
+                                <li><Link to='/dashboard/add-banner'>Add Banner</Link></li>
                                 <li><Link to='/dashboard/banners'>All Banners</Link></li>
                                 <li><Link>Statistics</Link></li>
                             </ul> :
