@@ -1,5 +1,6 @@
 import Banner from "../components/Banner";
 import PromotionSection from "../components/PromotionSection";
+import Recommendation from "../components/Recommendation";
 
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
         <div>
             <Banner></Banner>
             <PromotionSection></PromotionSection>
+            <Recommendation></Recommendation>            
         </div>
     );
 };
