@@ -3,23 +3,26 @@ import "swiper/css";
 import "swiper/css/bundle";
 import { Navigation, Pagination } from 'swiper/modules';
 import "../custom.css"
-import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../hooks/useAuth";
 import LoadingSpinner from "./shared/LoadingSpinner";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const Recommendation = () => {
     const {user} = useAuth();
-    const axiosSecure = useAxiosSecure();    
-    const { data: tips = {}, isLoading, refetch } = useQuery({
+    const axiosPublic = useAxiosPublic();    
+    const { data: tips = {}, isLoading } = useQuery({
         queryKey: ['tips'],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/recommend/${user.email}`)
+            const res = await axiosPublic.get(`/recommend/${user.email}`)
             console.log(res.data);
             return res.data
         },
         refetchOnWindowFocus: false,
     })
+    if(!user){
+        return '';
+    }
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>
     }

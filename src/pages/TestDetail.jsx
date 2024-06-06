@@ -4,20 +4,29 @@ import { Elements } from "@stripe/react-stripe-js";
 import BookingForm from "../components/BookingForm";
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import useBlocked from "../hooks/useBlocked";
+import LoadingSpinner from "../components/shared/LoadingSpinner";
 
 const TestDetail = () => {
     const testData = useLoaderData();
+    const [isBlocked, isUserLoading] = useBlocked();
     const { _id, image, date, time, slots, cost, title, short_description } = testData;
 
     const stripePromise = loadStripe(import.meta.env.VITE_PAY_PUBLISH_KEY);
 
-    const handleBooking = () => {        
+    const handleBooking = () => { 
+        if(isBlocked){
+            return toast.error("Sorry! You are blocked from this service");
+        }       
         if(slots > 0){
             document.getElementById('my_modal_1').showModal()
         }
         else{
             return toast.error("Sorry! this test has no slot left");
         }
+    }
+    if(isUserLoading){
+        return <LoadingSpinner></LoadingSpinner>
     }
     return (
         <div className="p-5 mx-auto sm:p-10 md:p-16 dark:bg-gray-100 dark:text-gray-800">

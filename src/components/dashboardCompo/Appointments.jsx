@@ -16,7 +16,7 @@ const Appointments = () => {
         }
     })
 
-    const handleDelete = (id) => {
+    const handleDelete = (id, test_id) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -26,9 +26,11 @@ const Appointments = () => {
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete this booking!"
         }).then(async (result) => {
-            if (result.isConfirmed) {                
+            if (result.isConfirmed) {
                 const res = await axiosSecure.delete(`/reserve/${id}`);
-                if(res.data.deletedCount > 0){
+                if (res.data.deletedCount > 0) {
+                    const res = await axiosSecure.patch(`/cancel-reserve/${test_id}`)
+                    console.log(res.data);
                     Swal.fire({
                         title: "Deleted!",
                         text: "Appointment has been deleted.",
@@ -73,7 +75,7 @@ const Appointments = () => {
                                 <td>{appoint.time}</td>
                                 <td>BDT {appoint.price}</td>
                                 <th>
-                                    <button onClick={() => handleDelete(appoint._id)} className="btn bg-red-600 border-2 border-transparent text-white font-black text-xl 
+                                    <button onClick={() => handleDelete(appoint._id, appoint.test_id)} className="btn bg-red-600 border-2 border-transparent text-white font-black text-xl 
                                     hover:bg-transparent hover:border-red-600 hover:text-red-600">
                                         <MdOutlineDelete />
                                     </button>

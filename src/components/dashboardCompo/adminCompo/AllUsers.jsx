@@ -13,6 +13,7 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 const AllUsers = () => {
     const axiosSecure = useAxiosSecure();
     const axiosPublic = useAxiosPublic();
+
     const [modal, setModal] = useState({ show: true, data: null });
     const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['users'],
@@ -77,16 +78,35 @@ const AllUsers = () => {
         });
     }
 
-    const handleDownload = (user) => {
-        const doc = new jsPDF('p', 'pt')
-        doc.addImage(user.photo, 'PNG', 30, 30, 100, 100);
-        doc.text(150, 80, `${user.name}`)
-        doc.text(150, 100, `Email: ${user.email}`)
-        doc.text(30, 170, `BloodType: ${user.bloodType}`)
-        doc.text(30, 190, `District: ${user.dist}`)
-        doc.text(30, 210, `Upazila: ${user.upazila}`)
-        doc.text(30, 230, `Status: ${user.status}`)
-        doc.save('user.pdf')
+    const handleDownload = async (user) => {
+        const res = await axiosSecure.get(`/reserve/${user.email}`)
+        if (res.data) {
+            const appoints = res.data.length;
+
+            let pos = 330;
+            const doc = new jsPDF('p', 'pt')
+            doc.addImage(user.photo, 'PNG', 30, 30, 100, 100);
+            doc.text(150, 80, `${user.name}`)
+            doc.text(150, 100, `Email: ${user.email}`)
+            doc.text(30, 170, `BloodType: ${user.bloodType}`)
+            doc.text(30, 190, `District: ${user.dist}`)
+            doc.text(30, 210, `Upazila: ${user.upazila}`)
+            doc.text(30, 230, `Status: ${user.status}`)
+            doc.text(30, 250, `Appointments: ${appoints}`)
+            doc.text(30, 300, `Test Title`)
+            doc.text(280, 300, `Date`)
+            doc.text(380, 300, `Cost`)
+            doc.text(450, 300, `Status`)
+            for(let i=0; i<appoints; i++){
+                doc.text(30, pos, `${res.data[i].title}`)
+                doc.text(280, pos, `${res.data[i].date}`)
+                doc.text(380, pos, `${res.data[i].price}`)
+                doc.text(450, pos, `${res.data[i].report}`)
+                pos = pos + 20;
+            }            
+            doc.save('user.pdf')
+        }
+
     }
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>

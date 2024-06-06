@@ -20,6 +20,7 @@ import TestReport from "../components/dashboardCompo/adminCompo/TestReport";
 import UserTestReport from "../components/dashboardCompo/UserTestReport";
 import AllBanners from "../components/dashboardCompo/adminCompo/AllBanners";
 import AddBanner from "../components/dashboardCompo/adminCompo/AddBanner";
+import DoctorsList from "../pages/DoctorsList";
 
 const router = createBrowserRouter([
     {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
                 path: '/test-details/:id',
                 element: <PrivateRoute><TestDetail></TestDetail></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/tests/${params.id}`)
+            },
+            {
+                path: '/doctors',
+                element: <DoctorsList></DoctorsList>
             }
         ]
     },

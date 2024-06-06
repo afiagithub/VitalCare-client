@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import Swal from 'sweetalert2'
 
 const AllTestList = () => {
-    const axiosPublic = useAxiosPublic();    
+    const axiosPublic = useAxiosPublic();
     const { data: tests = [], isLoading, refetch } = useQuery({
         queryKey: ['tests'],
         queryFn: async () => {
@@ -30,7 +30,7 @@ const AllTestList = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {                
                 const res = await axiosPublic.delete(`/tests/${id}`);
-                if(res.data.deletedCount > 0){
+                if(res.data.deletedCount > 0){                    
                     Swal.fire({
                         title: "Deleted!",
                         text: "Test data has been deleted.",

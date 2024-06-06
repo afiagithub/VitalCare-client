@@ -27,7 +27,7 @@ const Reservations = () => {
         setAllReserves(res.data);
     }
 
-    const handleDelete = (id) => {
+    const handleDelete = (id, test_id) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -40,6 +40,8 @@ const Reservations = () => {
             if (result.isConfirmed) {
                 const res = await axiosSecure.delete(`/reserve/${id}`);
                 if (res.data.deletedCount > 0) {
+                    const res = await axiosSecure.patch(`/cancel-reserve/${test_id}`)
+                    console.log(res.data);
                     Swal.fire({
                         title: "Deleted!",
                         text: "Reservation has been deleted.",
@@ -93,7 +95,7 @@ const Reservations = () => {
                                 <td>{book.time}</td>
                                 <td>BDT {book.price}</td>
                                 <th>
-                                    <button onClick={() => handleDelete(book._id)} className="btn bg-red-600 border-2 border-transparent text-white font-black text-xl 
+                                    <button onClick={() => handleDelete(book._id, book.test_id)} className="btn bg-red-600 border-2 border-transparent text-white font-black text-xl 
                                     hover:bg-transparent hover:border-red-600 hover:text-red-600">
                                         <MdOutlineDelete />
                                     </button>
