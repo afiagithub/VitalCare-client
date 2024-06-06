@@ -1,0 +1,45 @@
+[
+    {
+      "id": "pkg001",
+      "name": "Basic Health Package",
+      "fee_per_month": 29,
+      "fee_per_year": 299,
+      "facilities": [
+        "Quarterly Blood Tests",
+        "Annual Health Check-Up",
+        "Basic Imaging (X-Ray)",
+        "Online Consultation",
+        "Access to Health Reports Online"
+      ]
+    },
+    {
+      "id": "pkg002",
+      "name": "Advanced Health Package",
+      "fee_per_month": 59,
+      "fee_per_year": 599,
+      "facilities": [
+        "Monthly Blood Tests",
+        "Bi-Annual Health Check-Up",
+        "Advanced Imaging (MRI, CT Scan)",
+        "Priority Online and In-Person Consultation",
+        "Personalized Health Reports",
+        "Diet and Exercise Plan"
+      ]
+    },
+    {
+      "id": "pkg003",
+      "name": "Premium Health Package",
+      "fee_per_month": 99,
+      "fee_per_year": 999,
+      "facilities": [
+        "Unlimited Blood Tests",
+        "Quarterly Comprehensive Health Check-Up",
+        "Full Imaging Services (MRI, CT Scan, Ultrasound)",
+        "24/7 Access to Healthcare Professionals",
+        "Personalized Health Reports and Tracking",
+        "Custom Diet, Exercise, and Wellness Plan",
+        "Home Visit Services"
+      ]
+    }
+  ]
+  

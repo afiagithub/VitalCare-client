@@ -21,6 +21,7 @@ import UserTestReport from "../components/dashboardCompo/UserTestReport";
 import AllBanners from "../components/dashboardCompo/adminCompo/AllBanners";
 import AddBanner from "../components/dashboardCompo/adminCompo/AddBanner";
 import DoctorsList from "../pages/DoctorsList";
+import Packages from "../pages/Packages";
 
 const router = createBrowserRouter([
     {
@@ -51,6 +52,11 @@ const router = createBrowserRouter([
             {
                 path: '/doctors',
                 element: <DoctorsList></DoctorsList>
+            },
+            {
+                path: '/packages',
+                element: <Packages></Packages>,
+                loader: () => fetch('../fakePackage.json')
             }
         ]
     },

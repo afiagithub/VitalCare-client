@@ -20,6 +20,8 @@ const Navbar = () => {
             : "border-2 border-transparent"} to="/doctors">Doctors List</NavLink></li>
         <li className="bg-transparent mx-2 font-bold"><NavLink className={({ isActive }) => isActive ? "border-2 border-[#47CCC8] text-[#47CCC8]"
             : "border-2 border-transparent"} to="/all-tests">All Tests</NavLink></li>
+        <li className="bg-transparent mx-2 font-bold"><NavLink className={({ isActive }) => isActive ? "border-2 border-[#47CCC8] text-[#47CCC8]"
+            : "border-2 border-transparent"} to="/packages">Packages</NavLink></li>
     </>
     return (
         <div className="navbar py-5">
