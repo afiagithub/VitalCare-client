@@ -5,11 +5,12 @@ import LoadingSpinner from "../../shared/LoadingSpinner";
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import Swal from 'sweetalert2'
+import { Helmet } from "react-helmet-async";
 
 const TestReport = () => {
     const { id } = useParams();
     const axiosSecure = useAxiosSecure();
-    const { data: reserves = {}, isLoading, refetch } = useQuery({
+    const { data: reserves = {}, isLoading } = useQuery({
         queryKey: ['reserves'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/reserve-report/${id}`)
@@ -54,6 +55,9 @@ const TestReport = () => {
     }
     return (
         <section className="">
+            <Helmet>
+                <title>VitalCare | Test Report</title>
+            </Helmet>
             <div className="flex flex-col lg:flex-row justify-center min-h-screen">
                 <div className="flex items-center w-full max-w-3xl p-8 mx-auto lg:px-12 lg:w-3/5">
                     <div className="w-full">
@@ -63,28 +67,28 @@ const TestReport = () => {
 
                         <form onSubmit={handleReport} className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
                             <div>
-                                <label className="block mb-2 text-sm text-gray-600 ">Patient Name</label>
-                                <input name="name" type="text" defaultValue={reserves?.name}
+                                <label className="block mb-2 text-sm text-gray-600">Patient Name</label>
+                                <input name="name" type="text" disabled defaultValue={reserves?.name}
                                     className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 
                                 bg-white border border-gray-200 rounded-lg" />
                             </div>
                             <div>
                                 <label className="block mb-2 text-sm text-gray-600 ">Test Title</label>
-                                <input name="title" type="text" defaultValue={reserves.title}
+                                <input name="title" type="text" disabled defaultValue={reserves.title}
                                     className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 
                                 bg-white border border-gray-200 rounded-lg" />
                             </div>
 
                             <div>
                                 <label className="block mb-2 text-sm text-gray-600 ">Date</label>
-                                <input name="date" type="text" defaultValue={reserves.date}
+                                <input name="date" type="text" disabled defaultValue={reserves.date}
                                     className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 
                                 bg-white border border-gray-200 rounded-lg" />
                             </div>
 
                             <div>
                                 <label className="block mb-2 text-sm text-gray-600 ">Time</label>
-                                <input name="time" type="text" defaultValue={reserves.time}
+                                <input name="time" type="text" disabled defaultValue={reserves.time}
                                     className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 
                                 bg-white border border-gray-200 rounded-lg" />
                             </div>

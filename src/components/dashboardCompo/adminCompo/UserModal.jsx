@@ -1,4 +1,5 @@
 import { IoMdClose } from "react-icons/io";
+import PropTypes from 'prop-types';
 
 const UserModal = ({ data }) => {
     const { name, email, photo, bloodType, dist, upazila, status } = data;
@@ -24,5 +25,15 @@ const UserModal = ({ data }) => {
         </div>
     );
 };
+
+UserModal.propTypes = {
+    data: PropTypes.object,
+    name: PropTypes.string,
+    photo: PropTypes.string,
+    bloodType: PropTypes.string,
+    dist: PropTypes.string,
+    upazila: PropTypes.string,
+    status: PropTypes.string
+}
 
 export default UserModal;

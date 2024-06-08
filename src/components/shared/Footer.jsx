@@ -12,7 +12,7 @@ const Footer = () => {
                     <div className="w-full -mx-6 lg:w-2/5">
                         <div className="px-6">
                             <a href="#" className="text-[#2D3663] font-bold text-2xl">
-                                HealthCheck Labs
+                                VitalCare
                             </a>
 
                             <p className="max-w-sm mt-2 text-gray-500 ">
@@ -68,7 +68,7 @@ const Footer = () => {
                 <hr className="h-px my-6 bg-gray-200 border-none" />
 
                 <div>
-                    <p className="text-center text-gray-500 ">© HealthCheck Labs 2024 - All rights reserved</p>
+                    <p className="text-center text-gray-500 ">© VitalCare 2024 - All rights reserved</p>
                 </div>
             </div>
         </footer>

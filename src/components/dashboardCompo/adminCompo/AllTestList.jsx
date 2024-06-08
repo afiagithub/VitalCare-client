@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
-import LoadingSpinner from "../shared/LoadingSpinner";
 import { FaRegEdit } from "react-icons/fa";
 import { MdOutlineDelete } from "react-icons/md";
 import { AiOutlineSchedule } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2'
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import LoadingSpinner from "../../shared/LoadingSpinner";
+import { Helmet } from "react-helmet-async";
 
 const AllTestList = () => {
     const axiosPublic = useAxiosPublic();
@@ -46,6 +47,9 @@ const AllTestList = () => {
     }
     return (
         <div className="z-0 mt-10 px-10 md:px-0">
+            <Helmet>
+                <title>VitalCare | Tests List</title>
+            </Helmet>
             <h1 className="text-4xl font-bold font-ubuntu text-center mb-10">All Tests</h1>
             <div className="overflow-x-auto">
                 <table className="table">

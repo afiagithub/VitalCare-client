@@ -2,12 +2,15 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment';
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Swal from 'sweetalert2'
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const AddTest = () => {
     const [startDate, setStartDate] = useState(new Date());
-    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
+    const navigate = useNavigate();
 
     const handleAdd = async (e) => {
         e.preventDefault();
@@ -28,18 +31,22 @@ const AddTest = () => {
         }
         console.log(newTestData);
 
-        const res = await axiosPublic.post('/tests', newTestData);
+        const res = await axiosSecure.post('/tests', newTestData);
         if (res.data.insertedId) {
             Swal.fire({
                 title: "Successful",
                 text: "Added New Test",
                 icon: "success"
             });
+            navigate('/dashboard/all-test-list')
         }
 
     }
     return (
         <section className="">
+            <Helmet>
+                <title>VitalCare | Add Test</title>
+            </Helmet>
             <div className="flex flex-col lg:flex-row justify-center min-h-screen">
                 <div className="flex items-center w-full max-w-3xl p-8 mx-auto lg:px-12 lg:w-3/5">
                     <div className="w-full">

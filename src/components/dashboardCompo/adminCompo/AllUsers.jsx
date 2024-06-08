@@ -8,11 +8,10 @@ import UserModal from "./UserModal";
 import Swal from 'sweetalert2'
 import { jsPDF } from "jspdf";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const AllUsers = () => {
     const axiosSecure = useAxiosSecure();
-    const axiosPublic = useAxiosPublic();
 
     const [modal, setModal] = useState({ show: true, data: null });
     const { data: users = [], isLoading, refetch } = useQuery({
@@ -39,7 +38,7 @@ const AllUsers = () => {
             confirmButtonText: "Make Admin"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const res = await axiosPublic.patch(`/users/${id}`);
+                const res = await axiosSecure.patch(`/users/${id}`);
                 if (res.data.modifiedCount > 0) {
                     Swal.fire({
                         title: "Successful!",
@@ -64,7 +63,7 @@ const AllUsers = () => {
             confirmButtonText: "Block User?"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const res = await axiosPublic.patch(`/block-user/${id}`);
+                const res = await axiosSecure.patch(`/block-user/${id}`);
                 if (res.data.modifiedCount > 0) {
                     Swal.fire({
                         title: "Successful!",
@@ -113,6 +112,9 @@ const AllUsers = () => {
     }
     return (
         <div className="z-0 mt-10 px-10 md:px-0">
+            <Helmet>
+                <title>VitalCare | Users</title>
+            </Helmet>
             <h1 className="text-4xl font-bold font-ubuntu text-center mb-10">All users</h1>
             <div className="overflow-x-auto">
                 <table className="table">

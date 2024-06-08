@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
@@ -8,13 +8,11 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useState } from "react";
 import useAdmin from "../hooks/useAdmin";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
-import useBlocked from "../hooks/useBlocked";
+import { Helmet } from "react-helmet-async";
 
 const DashBoardLayout = () => {
     const { logOut } = useAuth();
     const [isAdmin, isAdminLoading] = useAdmin();
-    const [isBlocked, isUserLoading] = useBlocked();
-    const navigate = useNavigate();
     if (isAdminLoading) {
         <LoadingSpinner></LoadingSpinner>
     }
@@ -31,6 +29,9 @@ const DashBoardLayout = () => {
     }
     return (
         <div className="flex flex-row gap-5 relative">
+            <Helmet>
+                <title>VitalCare | Dashboard</title>
+            </Helmet>
             <div className="fixed md:hidden text-2xl pl-4 pt-5" onClick={handleCollaspe}>
                 {
                     show ? <IoIosCloseCircleOutline /> :
@@ -48,17 +49,17 @@ const DashBoardLayout = () => {
                         {
                             isAdmin ? <ul className="font-semibold space-y-2 font-ubuntu my-4">
                                 <li><Link to='/dashboard/profile'>My Profile</Link></li>
-                                <li><Link>All User</Link></li>
-                                <li><Link>Add a Test</Link></li>
+                                <li><Link to='/dashboard/all-users'>All Users</Link></li>
+                                <li><Link to='/dashboard/add-test'>Add a Test</Link></li>
                                 <li><Link to='/dashboard/all-test-list'>All Tests</Link></li>
-                                <li><Link>Add Banner</Link></li>
-                                <li><Link>All Banners</Link></li>
-                                <li><Link>Statistics</Link></li>
+                                <li><Link to='/dashboard/add-banner'>Add Banner</Link></li>
+                                <li><Link to='/dashboard/banners'>All Banners</Link></li>
+                                <li><Link to='/dashboard/statistics'>Statistics</Link></li>
                             </ul> :
                                 <ul className="font-semibold space-y-2 font-ubuntu my-4">
                                     <li><Link to='/dashboard/profile'>My Profile</Link></li>
-                                    <li><Link>My Upcoming Appointments</Link></li>
-                                    <li><Link>Test Results</Link></li>
+                                    <li><Link to='/dashboard/appointment'>My Upcoming Appointments</Link></li>
+                                    <li><Link to='/dashboard/test-result'>Test Results</Link></li>
                                 </ul>
                         }
                         <hr />

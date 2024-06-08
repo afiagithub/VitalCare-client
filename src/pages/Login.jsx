@@ -7,13 +7,14 @@ import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import useAuth from "../hooks/useAuth";
 import SocialLogin from "../components/SocialLogin"
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
-    const {signInUser} = useAuth();
+    const { signInUser } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const from = location?.state || '/';
-    
+
     const [show, setShow] = useState(false);
 
     const handleToggle = () => {
@@ -35,6 +36,9 @@ const Login = () => {
     }
     return (
         <div className="flex flex-col max-w-md mx-auto p-6 rounded-md sm:p-10 mb-10">
+            <Helmet>
+                <title>VitalCare | Login</title>
+            </Helmet>
             <div className="mb-8 text-center">
                 <h1 className="my-3 text-4xl font-bold text-primary">Sign in</h1>
                 <p className="text-sm dark:text-secondary">Sign in to access your account</p>

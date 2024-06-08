@@ -59,7 +59,7 @@ const UpdateProfile = () => {
         if (res.data.modifiedCount > 0) {
             refetch()
             navigate('/dashboard/profile')
-            toast.success("Successfully Registered")
+            toast.success("Successfully Updated Profile")
         }
     }
     if (isLoading || distLoading || upzilaLoad) {

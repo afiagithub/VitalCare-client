@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
-import { MdOutlineDelete } from "react-icons/md";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import { Helmet } from "react-helmet-async";
 
 const UserTestReport = () => {
     const axiosSecure = useAxiosSecure();
@@ -33,6 +33,9 @@ const UserTestReport = () => {
     }
     return (
         <div className="z-0 mt-10 px-10 md:px-0">
+            <Helmet>
+                <title>VitalCare | Test Results</title>
+            </Helmet>
             <h1 className="text-4xl font-bold font-ubuntu text-center mb-10">Test Results</h1>
             <div className="overflow-x-auto">
                 <table className="table">

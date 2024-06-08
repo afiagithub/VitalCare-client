@@ -1,15 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import Barchart from "./Barchart";
 import Piechart from "./Piechart";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const Statistics = () => {
-    const axiosPublic = useAxiosPublic();
-    const { data: stats = [], isLoading: statLoading, refetch } = useQuery({
+    const axiosSecure = useAxiosSecure();
+    const { data: stats = [], isLoading: statLoading } = useQuery({
         queryKey: ['stats'],
         queryFn: async () => {
-            const res = await axiosPublic.get('/totbooking')
+            const res = await axiosSecure.get('/totbooking')
             return res.data
         },
         refetchOnWindowFocus: false,
@@ -18,7 +19,7 @@ const Statistics = () => {
     const { data: ratios = [], isLoading: ratioLoading } = useQuery({
         queryKey: ['ratios'],
         queryFn: async () => {
-            const res = await axiosPublic.get('/delivery-ratio')
+            const res = await axiosSecure.get('/delivery-ratio')
             return res.data
         },
         refetchOnWindowFocus: false,
@@ -30,6 +31,9 @@ const Statistics = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>VitalCare | Statistics</title>
+            </Helmet>
             <h1 className="text-4xl font-bold font-ubuntu text-center mb-10">Statistics</h1>
             <div className="flex flex-row justify-between items-center">
                 <Barchart stats={stats}></Barchart>

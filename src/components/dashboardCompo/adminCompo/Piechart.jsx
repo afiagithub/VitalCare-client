@@ -1,4 +1,4 @@
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts';
 
 const Piechart = ({ ratios }) => {
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];

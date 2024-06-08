@@ -6,6 +6,7 @@ import useAxiosPublic from "../hooks/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import PropTypes from 'prop-types';
 
 const BookingForm = ({ testData }) => {
     const stripe = useStripe();
@@ -144,5 +145,9 @@ const BookingForm = ({ testData }) => {
         </div>
     );
 };
+
+BookingForm.propTypes = {
+    testData: PropTypes.object
+}
 
 export default BookingForm;

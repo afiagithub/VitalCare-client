@@ -4,6 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import { MdOutlineDelete } from "react-icons/md";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import Swal from 'sweetalert2'
+import { Helmet } from "react-helmet-async";
 
 const Appointments = () => {
     const axiosSecure = useAxiosSecure();
@@ -47,6 +48,9 @@ const Appointments = () => {
     }
     return (
         <div className="z-0 mt-10 px-10 md:px-0">
+            <Helmet>
+                <title>VitalCare | Appointments</title>
+            </Helmet>
             <h1 className="text-4xl font-bold font-ubuntu text-center mb-10">Upcoming Appointments</h1>
             <div className="overflow-x-auto">
                 <table className="table">

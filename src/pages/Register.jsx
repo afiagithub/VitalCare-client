@@ -10,6 +10,7 @@ import useAxiosPublic from "../hooks/useAxiosPublic";
 import useDistrict from "../hooks/useDistrict";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
 import useUpazilla from "../hooks/useUpazilla";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
     const img_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
@@ -31,7 +32,7 @@ const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
-        const { fullName, email, pass, confirmPass, photo, bloodType, dist, upazila } = data;
+        const { fullName, email, pass, confirmPass, bloodType, dist, upazila } = data;
         const imageFile = { image: data.photo[0] }
         const res = await axiosPublic.post(image_hosting_api, imageFile, {
             headers: {
@@ -64,7 +65,7 @@ const Register = () => {
                                 name: fullName,
                                 email,
                                 user_id: result.user.uid,
-                                photo: photoURL,
+                                photo: photoURL || 'https://i.ibb.co/QnTrVRz/icon.jpg',
                                 bloodType,
                                 dist,
                                 upazila,
@@ -84,11 +85,14 @@ const Register = () => {
         }
 
     }
-    if(distLoading || upzilaLoad){
+    if (distLoading || upzilaLoad) {
         return <LoadingSpinner></LoadingSpinner>
     }
     return (
         <div className="flex flex-col max-w-md mx-auto p-6 rounded-md sm:p-10 mb-10">
+            <Helmet>
+                <title>VitalCare | Register</title>
+            </Helmet>
             <div className="mb-8 text-center">
                 <h1 className="my-3 text-4xl font-bold text-primary">Register</h1>
                 <p className="text-sm dark:text-secondary">Create your account</p>
@@ -108,10 +112,11 @@ const Register = () => {
                     {errors.email && <span className="text-red-700 font-semibold">This field is required</span>}
                     <div>
                         <label className="block mb-2 text-sm">Photo URL</label>
-                        <input type="file" name="photo" {...register("photo")}
+                        <input type="file" name="photo" {...register("photo", { required: true })}
                             className="file-input file-input-bordered w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800" />
 
                     </div>
+                    {errors.email && <span className="text-red-700 font-semibold">This field is required</span>}
                     <div>
                         <label className="block mb-2 text-sm">Blood Group</label>
                         <select name="bloodType" {...register("bloodType")} defaultValue='default'
@@ -133,8 +138,8 @@ const Register = () => {
                             className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800">
                             <option value="default" disabled>Your District</option>
                             {
-                                districtData.map(district => 
-                                <option key={district.id} value={district.name}>{district.name}</option>)
+                                districtData.map(district =>
+                                    <option key={district._id} value={district.name}>{district.name}</option>)
                             }
                         </select>
                     </div>
@@ -144,8 +149,8 @@ const Register = () => {
                             className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800">
                             <option value="default" disabled>Your Upazila</option>
                             {
-                                upazilaData.map(upazila => 
-                                <option key={upazila.id} value={upazila.name}>{upazila.name}</option>)
+                                upazilaData.map(upazila =>
+                                    <option key={upazila._id} value={upazila.name}>{upazila.name}</option>)
                             }
                         </select>
                     </div>

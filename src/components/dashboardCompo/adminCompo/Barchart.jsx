@@ -15,13 +15,17 @@ const Barchart = ({stats}) => {
 
         return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
     };
+
+    const barData = stats.map(data => {
+        return {name: data.testTitle, booking: data.totalBookings}
+    })
     return (
         <div>
             <h1 className="text-2xl font-bold font-ubuntu text-center mb-10">Most Booked Tests</h1>
             <BarChart
                 width={600}
                 height={300}
-                data={stats}
+                data={barData}
                 margin={{
                     top: 20,
                     right: 30,
@@ -30,12 +34,12 @@ const Barchart = ({stats}) => {
                 }}
             >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="testTitle" />
+                <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="totalBookings" fill="#8884d8" shape={<TriangleBar />} label={{ position: 'top' }}>
-                    {stats.map((entry, index) => (
+                <Bar dataKey="booking" fill="#8884d8" shape={<TriangleBar />} label={{ position: 'top' }}>
+                    {barData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={colors[index % 20]} />
                     ))}
                 </Bar>

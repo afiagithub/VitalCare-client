@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
+import { Helmet } from "react-helmet-async";
 
 
 const BlogDetails = () => {
@@ -21,6 +22,9 @@ const BlogDetails = () => {
     }
     return (
         <div className="max-w-3xl mx-auto my-5">
+            <Helmet>
+                <title>VitalCare | Blog Details</title>
+            </Helmet>
             <img className="object-cover w-full h-64" src={blog.image} alt="Article" />
                 <div className="p-6">
                     <div>

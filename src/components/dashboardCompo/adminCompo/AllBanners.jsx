@@ -4,6 +4,7 @@ import { SiTicktick } from "react-icons/si";
 import Swal from 'sweetalert2'
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const AllBanners = () => {
     const axiosSecure = useAxiosSecure();
@@ -56,6 +57,9 @@ const AllBanners = () => {
     }
     return (
         <div className="z-0 mt-10 px-10 md:px-0">
+            <Helmet>
+                <title>VitalCare | Banners</title>
+            </Helmet>
             <h1 className="text-4xl font-bold font-ubuntu text-center mb-10">All banners</h1>
             <div className="overflow-x-auto">
                 <table className="table">

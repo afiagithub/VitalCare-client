@@ -23,9 +23,9 @@ const SocialLogin = () => {
                     
                     const userInfo = {
                         name: result.user.displayName,
-                        email: result.user.email,
+                        email: result.user.email || result.user?.reloadUserInfo?.screenName,
                         user_id: result.user.uid,
-                        photo: result.user.photoURL,
+                        photo: result.user.photoURL || 'https://i.ibb.co/QnTrVRz/icon.jpg',
                         bloodType: '',
                         dist: '',
                         upazila: '',
@@ -33,7 +33,6 @@ const SocialLogin = () => {
 
                     }
                     const res = await axiosPublic.post("/users", userInfo);
-                    console.log(res);
                     if (res.data.insertedId) {
                         console.log({ message: 'success' });
                     }

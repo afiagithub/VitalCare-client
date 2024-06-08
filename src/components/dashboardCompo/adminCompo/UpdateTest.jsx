@@ -1,16 +1,29 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useLoaderData } from "react-router-dom";
 import moment from 'moment';
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Swal from 'sweetalert2'
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import LoadingSpinner from "../../shared/LoadingSpinner";
 
 const UpdateTest = () => {
-    const testData = useLoaderData();
+    const {id} = useParams();
+    const axiosPublic = useAxiosPublic();
+    const { data: testData = {}, isLoading } = useQuery({
+        queryKey: ['test-data', id],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/tests/${id}`)
+            return res.data;
+        },
+        refetchOnWindowFocus: false,
+    })
     const { _id, image, date: testDate, slots, cost, title, short_description } = testData;
     const [startDate, setStartDate] = useState(new Date());
-    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
 
     const handleUpdate = (e) => {
         e.preventDefault();
@@ -41,7 +54,7 @@ const UpdateTest = () => {
             confirmButtonText: "Yes, update the test!"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const res = await axiosPublic.patch(`/tests/${_id}`, updateTest);
+                const res = await axiosSecure.patch(`/tests/${_id}`, updateTest);
                 if (res.data.modifiedCount > 0) {
                     Swal.fire({
                         title: "Updated!",
@@ -54,8 +67,14 @@ const UpdateTest = () => {
         });
 
     }
+    if(isLoading){
+        return <LoadingSpinner></LoadingSpinner>
+    }
     return (
         <section className="">
+            <Helmet>
+                <title>VitalCare | Update Test</title>
+            </Helmet>
             <div className="flex flex-col lg:flex-row justify-center min-h-screen">
                 <div className="md:-ml-5 block lg:w-2/5">
                     <img className="h-32 lg:h-full w-full object-cover" src="https://i.ibb.co/2s1ZKNd/test.jpg" alt="" />

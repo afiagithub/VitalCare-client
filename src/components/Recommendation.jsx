@@ -2,7 +2,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/bundle";
 import { Navigation, Pagination } from 'swiper/modules';
-import "../custom.css"
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../hooks/useAuth";
 import LoadingSpinner from "./shared/LoadingSpinner";

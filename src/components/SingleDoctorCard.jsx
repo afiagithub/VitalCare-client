@@ -1,6 +1,7 @@
 import { MdOutlineMarkEmailRead } from "react-icons/md";
 import { FiTwitter } from "react-icons/fi";
 import { LuFacebook } from "react-icons/lu";
+import PropTypes from 'prop-types';
 
 const SingleDoctorCard = ({ doc }) => {
     const { name, email, fb_address, twitter, area_of_expertise, degrees, phone, years_of_expertise, image } = doc;
@@ -31,5 +32,18 @@ const SingleDoctorCard = ({ doc }) => {
         </div>
     );
 };
+
+SingleDoctorCard.propTypes = {
+    doc: PropTypes.object,
+    name: PropTypes.string,
+    email: PropTypes.string,
+    fb_address: PropTypes.string,
+    twitter: PropTypes.string,
+    area_of_expertise: PropTypes.string,
+    degrees: PropTypes.string,
+    phone: PropTypes.string,
+    years_of_expertise: PropTypes.number,
+    image: PropTypes.string,
+}
 
 export default SingleDoctorCard;

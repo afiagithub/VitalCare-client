@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-
+import PropTypes from 'prop-types';
 
 const SingleTestCard = ({ test }) => {
     const {_id, image, date, slots, title, short_description } = test;
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
-            <figure><img src={image} alt="test" /></figure>
+            <figure><img className="h-64" src={image} alt="test" /></figure>
             <div className="card-body">
                 <h2 className="card-title h-14">{title}</h2>
                 <p className="text-sm">{short_description.slice(0, 80)}...</p>
@@ -21,5 +21,14 @@ const SingleTestCard = ({ test }) => {
         </div>
     );
 };
+
+SingleTestCard.propTypes = {
+    test: PropTypes.object,
+    date: PropTypes.string,
+    image: PropTypes.string,
+    slots: PropTypes.string,
+    title: PropTypes.string,
+    short_description: PropTypes.string
+}
 
 export default SingleTestCard;

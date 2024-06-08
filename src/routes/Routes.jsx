@@ -8,7 +8,7 @@ import PrivateRoute from "../protected/PrivateRoute"
 import Profile from "../components/dashboardCompo/Profile";
 import AllTests from "../pages/AllTests";
 import TestDetail from "../pages/TestDetail";
-import AllTestList from "../components/dashboardCompo/AllTestList";
+import AllTestList from "../components/dashboardCompo/adminCompo/AllTestList";
 import UpdateTest from "../components/dashboardCompo/adminCompo/UpdateTest";
 import AddTest from "../components/dashboardCompo/adminCompo/AddTest";
 import AllUsers from "../components/dashboardCompo/adminCompo/AllUsers";
@@ -49,8 +49,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/test-details/:id',
-                element: <PrivateRoute><TestDetail></TestDetail></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/tests/${params.id}`)
+                element: <PrivateRoute><TestDetail></TestDetail></PrivateRoute>
             },
             {
                 path: '/doctors',
@@ -93,36 +92,35 @@ const router = createBrowserRouter([
             },
             {
                 path: 'all-test-list',
-                element: <AllTestList></AllTestList>
+                element: <AdminRoute><AllTestList></AllTestList></AdminRoute>
             },
             {
                 path: 'add-test',
-                element: <AddTest></AddTest>
+                element: <AdminRoute><AddTest></AddTest></AdminRoute>
             },
             {
                 path: 'update-test/:id',
-                element: <UpdateTest></UpdateTest>,
-                loader: ({ params }) => fetch(`http://localhost:5000/tests/${params.id}`)
+                element: <AdminRoute><UpdateTest></UpdateTest></AdminRoute>
             },
             {
                 path: 'reservation/:id',
-                element: <Reservations></Reservations>
+                element: <AdminRoute><Reservations></Reservations></AdminRoute>
             },
             {
                 path: 'report/:id',
-                element: <TestReport></TestReport>
+                element: <AdminRoute><TestReport></TestReport></AdminRoute>
             },
             {
                 path: 'banners',
-                element: <AllBanners></AllBanners>
+                element: <AdminRoute><AllBanners></AllBanners></AdminRoute>
             },
             {
                 path: 'add-banner',
-                element: <AddBanner></AddBanner>
+                element: <AdminRoute><AddBanner></AddBanner></AdminRoute>
             },
             {
                 path: 'statistics',
-                element: <Statistics></Statistics>
+                element: <AdminRoute><Statistics></Statistics></AdminRoute>
             }
         ]
     }

@@ -6,6 +6,7 @@ import { IoDocumentAttachOutline } from "react-icons/io5";
 import Swal from 'sweetalert2'
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const Reservations = () => {
     const { id } = useParams();
@@ -59,6 +60,9 @@ const Reservations = () => {
 
     return (
         <div className="z-0 mt-10 px-10 md:px-5">
+            <Helmet>
+                <title>VitalCare | Bookings</title>
+            </Helmet>
             <h1 className="text-4xl font-bold font-ubuntu text-center mb-10">Reservations</h1>
             <form onSubmit={handleSearch} className="flex flex-row gap-4 items-center justify-end mr-5 md:mr-10 mb-5 md:mb-8">
                 <input type="email" name="email" placeholder="Search" className="input input-bordered w-24 md:w-auto" />

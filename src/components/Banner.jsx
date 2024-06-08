@@ -1,7 +1,3 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/bundle";
-import { Autoplay, Navigation } from 'swiper/modules';
 import "../custom.css"
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
@@ -23,7 +19,7 @@ const Banner = () => {
     }
     return (
         <div className="slider flex flex-col items-center justify-center text-center rounded-xl 
-        bg-cover bg-no-repeat bg-center"
+        bg-no-repeat bg-cover bg-fixed"
             style={{ backgroundImage: `linear-gradient(to bottom, rgba(45, 54, 99, 0.4), rgba(0, 0, 0, 0.6)), url(${banner.image})` }}>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold 
             w-4/5 lg:w-3/5 capitalize text-[#00BFBF] font-ubuntu">{banner.coupon_rate}% {banner.heading}

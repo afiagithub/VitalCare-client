@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import moment from 'moment';
+import { Helmet } from "react-helmet-async";
 
 const AllTests = () => {
     const axiosPublic = useAxiosPublic();
@@ -37,9 +38,7 @@ const AllTests = () => {
     })
 
     const { count } = testCount;
-    // const itemsPerPage = 9;
     const noOfPages = Math.ceil(count / itemsPerPage);
-    // console.log(noOfPages);
     const pages = [];
     for (let i = 0; i < noOfPages; i++) {
         pages.push(i)
@@ -75,6 +74,9 @@ const AllTests = () => {
     }
     return (
         <div className="my-8 lg:my-12">
+            <Helmet>
+                <title>VitalCare | Tests</title>
+            </Helmet>
             <h1 className="text-4xl font-bold font-ubuntu text-center mb-10">Explore Our Diagnostic Services</h1>
             <p className="w-4/5 lg:w-3/5 mx-auto text-center text-sm font-semibold mb-5 lg:mb-10">Examine our broad array of
                 diagnostic tests available to address all your health concerns.
@@ -82,8 +84,8 @@ const AllTests = () => {
                 you receive high-quality, accurate results promptly. Find the test you need today.</p>
             <div className="mx-auto w-2/5 text-center">
                 <label className='text-lg font-semibold'>Filter By Date</label> <br />
-                <div className="flex flex-row items-center gap-4 lg:w-1/2 mx-auto">
-                    <DatePicker className='border-2 w-32 rounded-md dark:border-gray-300 dark:bg-gray-50 p-3 mt-4 mb-8'
+                <div className="flex flex-row items-center gap-4 lg:w-1/2 mx-auto my-5">
+                    <DatePicker className='border-2 w-32 rounded-md dark:border-gray-300 dark:bg-gray-50 p-3'
                         selected={startDate} onChange={(date) => setStartDate(date)} />
                     <button onClick={handleDate} className="btn bg-[#2D3663] text-white border-2 border-[#2D3663] 
                 hover:border-[#2D3663] hover:bg-transparent hover:text-[#2D3663]">Filter</button>
@@ -101,12 +103,13 @@ const AllTests = () => {
                     pages.map(page => <button
                     onClick={() => setCurrentPage(page)}
                         key={page}
-                        className={currentPage === page? 'btn btn-secondary': 'btn btn-primary'}>
+                        className={currentPage === page? 'btn border-2 bg-[#47CCC8] text-white border-[#47CCC8]'
+                        : 'btn border-2 border-[#47CCC8] bg-transparent text-[#47CCC8]'}>
                         {page + 1}
                     </button>)
                 }
                 <button onClick={handleNext} className="btn btn-outline">Next</button>
-                <select value={itemsPerPage} onChange={handleItemsPerPage} name="">
+                <select value={itemsPerPage} onChange={handleItemsPerPage} className="border-2 p-3 rounded-xl border-black">
                     <option value="6">6</option>
                     <option value="9">9</option>
                     <option value="18">18</option>

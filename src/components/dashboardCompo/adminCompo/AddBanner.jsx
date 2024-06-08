@@ -1,6 +1,7 @@
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from 'sweetalert2'
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const AddBanner = () => {
     const axiosSecure = useAxiosSecure();
@@ -36,6 +37,9 @@ const AddBanner = () => {
     }
     return (
         <section className="">
+            <Helmet>
+                <title>VitalCare | Add Banner</title>
+            </Helmet>
             <div className="flex flex-col lg:flex-row justify-center min-h-screen">
                 <div className="flex items-center w-full max-w-3xl p-8 mx-auto lg:px-12 lg:w-3/5">
                     <div className="w-full">

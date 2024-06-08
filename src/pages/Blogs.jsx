@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { Link } from "react-router-dom";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
+import { Helmet } from "react-helmet-async";
 
 const Blogs = () => {
     const axiosPublic = useAxiosPublic();
@@ -18,6 +19,9 @@ const Blogs = () => {
     }
     return (
         <div className="py-6 sm:py-12">
+            <Helmet>
+                <title>VitalCare | Blogs</title>
+            </Helmet>
             <h1 className="font-ubuntu text-4xl font-bold text-center mb-5">
             Health Insights and Expert Advice</h1>
             <p className="w-4/5 lg:w-3/5 mx-auto text-center mb-5 md:mb-8 lg:mb-10">

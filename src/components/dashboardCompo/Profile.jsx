@@ -1,17 +1,20 @@
 import UpdateProfile from "./UpdateProfile";
 import getUser from "../../hooks/getUser";
-
+import { Helmet } from "react-helmet-async";
+import LoadingSpinner from "../shared/LoadingSpinner";
+import PropTypes from 'prop-types';
 
 const Profile = () => {
     const [currentUser, isLoading] = getUser();
     const {name, email, photo, bloodType, dist, upazila, status} = currentUser;
     if(isLoading){
-        <div className="text-center flex flex-col items-center justify-center h-[100vh]">
-            <span className="loading loading-spinner loading-lg text-primary"></span>
-        </div>
+        <LoadingSpinner></LoadingSpinner>
     }
     return (
         <div className="w-full mt-6 md:mt-8 lg:mt-10 flex flex-col lg:flex-row justify-between px-10 md:px-0">
+            <Helmet>
+                <title>VitalCare | My Profile</title>
+            </Helmet>
             <div className="lg:w-1/2 text-center mb-5 lg:mb-0">
                 <img className="w-32 h-32 rounded-full mx-auto object-center" src={photo} alt="" />
                 <h2 className="text-2xl font-bold my-5">Welcome, {name}</h2>
@@ -32,5 +35,15 @@ const Profile = () => {
         </div>
     );
 };
+
+Profile.propTypes = {
+    data: PropTypes.object,
+    name: PropTypes.string,
+    photo: PropTypes.string,
+    bloodType: PropTypes.string,
+    dist: PropTypes.string,
+    upazila: PropTypes.string,
+    status: PropTypes.string
+}
 
 export default Profile;
