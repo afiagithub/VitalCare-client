@@ -23,6 +23,8 @@ import AddBanner from "../components/dashboardCompo/adminCompo/AddBanner";
 import DoctorsList from "../pages/DoctorsList";
 import Packages from "../pages/Packages";
 import Statistics from "../components/dashboardCompo/adminCompo/Statistics";
+import Blogs from "../pages/Blogs";
+import BlogDetails from "../pages/BlogDetails";
 
 const router = createBrowserRouter([
     {
@@ -58,6 +60,14 @@ const router = createBrowserRouter([
                 path: '/packages',
                 element: <Packages></Packages>,
                 loader: () => fetch('../fakePackage.json')
+            },
+            {
+                path: '/blog',
+                element: <Blogs></Blogs>
+            },
+            {
+                path: '/blog/:id',
+                element: <BlogDetails></BlogDetails>
             }
         ]
     },
