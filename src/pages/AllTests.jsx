@@ -11,27 +11,66 @@ const AllTests = () => {
     const axiosPublic = useAxiosPublic();
     const [startDate, setStartDate] = useState(new Date());
     const [allTests, setAllTests] = useState([]);
+    const [currentPage, setCurrentPage] = useState(0)
+    const [itemsPerPage, setItemsPerPage] = useState(9);
 
     const today = new Date();
     const todayDate = moment(today).format('YYYY-MM-DD');
 
-    const { data: tests = [], isLoading } = useQuery({
-        queryKey: ['tests'],
+    const { data: tests = [], isLoading, refetch } = useQuery({
+        queryKey: ['tests', currentPage, itemsPerPage],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/tests?date=${todayDate}`)
+            const res = await axiosPublic.get(`/tests?date=${todayDate}&page=${currentPage}&size=${itemsPerPage}`)
             setAllTests(res.data);
         },
         refetchOnWindowFocus: false,
     })
 
+    const { data: testCount = {}, isLoading: testLoading } = useQuery({
+        queryKey: ['test-count'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/test-count')
+            console.log(res.data);
+            return res.data
+        },
+        refetchOnWindowFocus: false,
+    })
+
+    const { count } = testCount;
+    // const itemsPerPage = 9;
+    const noOfPages = Math.ceil(count / itemsPerPage);
+    // console.log(noOfPages);
+    const pages = [];
+    for (let i = 0; i < noOfPages; i++) {
+        pages.push(i)
+    }
+
+    const handleItemsPerPage = (e) => {
+        const newPerPage = parseInt(e.target.value)
+        setCurrentPage(0)
+        setItemsPerPage(newPerPage)
+        refetch()
+    }
+
+    const handlePrev = () => {
+        if(currentPage > 0){
+            setCurrentPage(currentPage - 1)
+        }
+    }
+
+    const handleNext = () => {
+        if(currentPage < pages.length - 1){
+            setCurrentPage(currentPage + 1)
+        }
+    }
+
     const handleDate = async () => {
         const newDate = moment(startDate).format('YYYY-MM-DD')
-        console.log(newDate);
         const res = await axiosPublic.get(`/filter-tests?date=${newDate}`)
         setAllTests(res.data)
     }
 
-    if (isLoading) {
+    if (isLoading || testLoading) {
         return <LoadingSpinner></LoadingSpinner>
     }
     return (
@@ -55,6 +94,23 @@ const AllTests = () => {
                 {
                     allTests.map(test => <SingleTestCard key={test._id} test={test}></SingleTestCard>)
                 }
+            </div>
+            <div className="mt-5 text-center flex flex-row gap-5 justify-center items-center">
+                <button onClick={handlePrev} className="btn btn-outline">Prev</button>
+                {
+                    pages.map(page => <button
+                    onClick={() => setCurrentPage(page)}
+                        key={page}
+                        className={currentPage === page? 'btn btn-secondary': 'btn btn-primary'}>
+                        {page + 1}
+                    </button>)
+                }
+                <button onClick={handleNext} className="btn btn-outline">Next</button>
+                <select value={itemsPerPage} onChange={handleItemsPerPage} name="">
+                    <option value="6">6</option>
+                    <option value="9">9</option>
+                    <option value="18">18</option>
+                </select>
             </div>
         </div>
     );

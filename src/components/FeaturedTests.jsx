@@ -19,7 +19,6 @@ const FeaturedTests = () => {
     }
     return (
         <div>
-            <p>{featured.length}</p>
             <h1 className="font-ubuntu text-4xl font-bold text-center mt-5 md:mt-8 lg:mt-10 mb-5">Featured Tests</h1>
             <p className="w-4/5 lg:w-3/5 mx-auto text-center mb-5 md:mb-8 lg:mb-10">
                 Promoting various health related events throughout the year to
