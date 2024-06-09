@@ -27,7 +27,7 @@ const FeaturedTests = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 place-items-center">
                 {
                     featured.map(test => <div key={test._id} className="card w-96 bg-base-100 shadow-xl">
-                        <figure><img src={test.image} alt="test" /></figure>
+                        <figure><img className="h-64" src={test.image} alt="test" /></figure>
                         <div className="card-body">
                             <h2 className="card-title h-14">{test.title}</h2>
                             <div className="flex flex-row items-center justify-between font-bold">

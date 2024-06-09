@@ -78,7 +78,7 @@ const AllUsers = () => {
     }
 
     const handleDownload = async (user) => {
-        const res = await axiosSecure.get(`/reserve/${user.email}`)
+        const res = await axiosSecure.get(`/download-reserve/${user.email}`)
         if (res.data) {
             const appoints = res.data.length;
 

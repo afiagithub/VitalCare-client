@@ -43,7 +43,7 @@ const BookingForm = ({ testData }) => {
                 testPrice = testPrice - (testPrice* (res.data.coupon_rate/100))
             }
             else{
-                return toast.error("Sorry! the coupon code doesn't work");
+                return toast.error("Sorry! the coupon code is not valid or has expired");
             }            
         }
 

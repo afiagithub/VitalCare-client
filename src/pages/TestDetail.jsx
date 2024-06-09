@@ -59,7 +59,7 @@ const TestDetail = () => {
                         <p>Date: <span className="text-[#20B2AA]">{date}</span></p>
                         <p>Time: <span className="text-[#20B2AA]">{time}</span></p>
                         <p>Slot Left: <span className="text-[#20B2AA]">{slots}</span></p>
-                        <p>Cost: <span className="text-[#20B2AA]">${cost}</span></p>
+                        <p>Cost: <span className="text-[#20B2AA]">BDT. {cost}</span></p>
                     </div>
                     <button onClick={handleBooking}
                         className="btn bg-[#2D3663] text-white border-2 border-[#2D3663] 
