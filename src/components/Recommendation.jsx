@@ -3,25 +3,22 @@ import "swiper/css";
 import "swiper/css/bundle";
 import { Navigation, Pagination } from 'swiper/modules';
 import { useQuery } from "@tanstack/react-query";
-import useAuth from "../hooks/useAuth";
 import LoadingSpinner from "./shared/LoadingSpinner";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import tipImg from "../../public/tips.png"
+import preventImg from "../../public/quarantine.png"
+import testImg from "../../public/tests.png"
 
 const Recommendation = () => {
-    const {user} = useAuth();
-    const axiosPublic = useAxiosPublic();    
+    const axiosPublic = useAxiosPublic();
     const { data: tips = {}, isLoading } = useQuery({
         queryKey: ['tips'],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/recommend/${user.email}`)
-            console.log(res.data);
+            const res = await axiosPublic.get('/recommend')
             return res.data
         },
         refetchOnWindowFocus: false,
     })
-    if(!user){
-        return '';
-    }
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>
     }
@@ -29,7 +26,7 @@ const Recommendation = () => {
         <div>
             <h1 className="font-ubuntu text-4xl font-bold text-center mt-5 md:mt-8 lg:mt-10 mb-5">
                 Personalized Health Recommendations</h1>
-            <p className="w-4/5 lg:w-3/5 mx-auto text-center mb-5 md:mb-8 lg:mb-10">                
+            <p className="w-4/5 lg:w-3/5 mx-auto text-center mb-5 md:mb-8 lg:mb-12">
                 Our personalized recommendations include valuable health tips, preventive measures,
                 suggested tests, dietary advice, and exercise routines. Stay proactive about your health with guidance
                 that's specifically designed for you.</p>
@@ -56,26 +53,30 @@ const Recommendation = () => {
                 modules={[Navigation, Pagination]}
                 className="swiper-container"
             >
-                <SwiperSlide className="text-center p-4 mb-10">
-                    <h2 className="text-2xl font-bold my-4">Health Tips</h2>
-                    <p className="font-semibold text-[#2D3663]">{tips.healthTips}</p>
-                </SwiperSlide>
-                <SwiperSlide className="text-center p-4">
-                    <h2 className="text-2xl font-bold my-4">Preventive Measures</h2>
-                    <p className="font-semibold text-[#2D3663]">{tips.preventiveMeasures}</p>
-                </SwiperSlide>
-                <SwiperSlide className="text-center p-4">
-                    <h2 className="text-2xl font-bold my-4">Tests Suggested</h2>
-                    <p className="font-semibold text-[#2D3663]">{tips.upcomingTestsSuggested}</p>
-                </SwiperSlide>
-                <SwiperSlide className="text-center p-4">
-                    <h2 className="text-2xl font-bold my-4">Food Habits</h2>
-                    <p className="font-semibold text-[#2D3663]">{tips.foodHabits}</p>
-                </SwiperSlide>
-                <SwiperSlide className="text-center p-4">
-                    <h2 className="text-2xl font-bold my-4">Suggested Exercise</h2>
-                    <p className="font-semibold text-[#2D3663]">{tips.exerciseToPractice}</p>
-                </SwiperSlide>
+                {
+                    tips.map(tip => <SwiperSlide key={tip._id} 
+                    className="text-center p-4 mb-10 shadow-lg rounded-xl">
+                        <div className="flex flex-row gap-2 justify-center items-center">
+                            <img className="w-8 mx-auto" src={tipImg} alt="" />
+                            <h2 className="text-lg font-bold my-4 text-left">Health Tips:
+                                <span className="text-base font-semibold text-[#2D3663]"> {tip.healthTips}</span></h2>
+                        </div>
+
+                        <div className="flex flex-row gap-2 justify-center items-center">
+                            <img className="w-12 mx-auto" src={preventImg} alt="" />
+                            <h2 className="text-lg font-bold my-4 text-left">Preventive Measures:
+                                <span className="text-base font-semibold text-[#2D3663]"> {tip.preventiveMeasures}</span>
+                            </h2>
+                        </div>
+
+                        <div className="flex flex-row gap-2 justify-center items-center">
+                            <img className="w-12 mx-auto" src={testImg} alt="" />
+                            <h2 className="text-lg font-bold my-4 text-left">Tests Suggested:
+                                <span className="text-base font-semibold text-[#2D3663]"> {tip.upcomingTestsSuggested}</span>
+                            </h2>
+                        </div>
+                    </SwiperSlide>)
+                }
             </Swiper>
         </div>
     );

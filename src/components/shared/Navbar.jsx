@@ -36,18 +36,18 @@ const Navbar = () => {
                         {links}
                         {
                             user ? <li className="bg-transparent mx-2 font-bold"><NavLink className={({ isActive }) => isActive ? "border-2 border-[#47CCC8] text-[#47CCC8]"
-                                : "border-2 border-transparent"} to="/dashboard">Dashboard</NavLink></li> : ''
+                                : "border-2 border-transparent"} to="/dashboard/profile">Dashboard</NavLink></li> : ''
                         }
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-2xl text-[#2D3663] font-bold font-ubuntu">VitalCare</a>
+                <a href="/" className="btn btn-ghost text-2xl text-[#2D3663] font-bold font-ubuntu">VitalCare</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
                     {links}
                     {
                         user ? <li className="bg-transparent mx-2 font-bold"><NavLink className={({ isActive }) => isActive ? "border-2 border-[#47CCC8] text-[#47CCC8]"
-                            : "border-2 border-transparent"} to="/dashboard">Dashboard</NavLink></li> : ''
+                            : "border-2 border-transparent"} to="/dashboard/profile">Dashboard</NavLink></li> : ''
                     }
                 </ul>
             </div>

@@ -25,11 +25,13 @@ import Packages from "../pages/Packages";
 import Statistics from "../components/dashboardCompo/adminCompo/Statistics";
 import Blogs from "../pages/Blogs";
 import BlogDetails from "../pages/BlogDetails";
+import ErrorPage from "../pages/ErrorPage";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <MainLayout></MainLayout>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: '/',

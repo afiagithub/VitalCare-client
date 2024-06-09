@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts';
+import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
 
 const Piechart = ({ ratios }) => {
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
@@ -17,11 +17,12 @@ const Piechart = ({ ratios }) => {
     };
 
     const pieData = ratios.map(data => {
-        return {name: data.status, value: data.count}
+        return { name: data.status, value: data.count }
     })
     return (
         <div>
             <h1 className="text-2xl font-bold font-ubuntu text-center mb-10">Report Status Ratio</h1>
+            <ResponsiveContainer width="100%" height="100%"></ResponsiveContainer>
             <PieChart width={400} height={400}>
                 <Tooltip />
                 <Legend />
@@ -40,6 +41,7 @@ const Piechart = ({ ratios }) => {
                     ))}
                 </Pie>
             </PieChart>
+            <ResponsiveContainer />
         </div>
     );
 };

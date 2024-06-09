@@ -1,8 +1,8 @@
 import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
-import { FaGithub } from "react-icons/fa";
 import 'react-tooltip/dist/react-tooltip.css'
 import { Tooltip } from "react-tooltip";
+import { FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
     return (
@@ -16,26 +16,27 @@ const Footer = () => {
                             </a>
 
                             <p className="max-w-sm mt-2 text-gray-500 ">
-                                Connect and collaborate with peers for effective group studying.
+                            Stay Connected with VitalCare for the best diagnostic services to support your well-being
                             </p>
 
                             <div className="flex mt-6 -mx-2 text-xl gap-5">
-                                <a data-tooltip-id="fb-page" data-tooltip-content="https://www.facebook.com/healthchecklabs" 
+                                <a data-tooltip-id="fb-page" data-tooltip-content="https://www.facebook.com/vitalcare" 
                                 data-tooltip-place="bottom">
                                     <FaFacebookF />
                                 </a>
                                 <Tooltip id="fb-page"/>
-                                <a data-tooltip-id="twitter-page" data-tooltip-content="https://www.twitter.com/healthchecklabs"
+                                
+                                <a data-tooltip-id="twitter-page" data-tooltip-content="https://www.twitter.com/vitalcare"
                                     data-tooltip-place="bottom">
                                     <FaTwitter />
                                 </a>
                                 <Tooltip id="twitter-page" />
 
-                                <a data-tooltip-id="git-page" data-tooltip-content="https://www.github.com/healthchecklabs"
+                                <a data-tooltip-id="instagram-page" data-tooltip-content="https://www.instagram.com/vitalcare"
                                     data-tooltip-place="bottom">
-                                    <FaGithub />
+                                    <FaInstagram />
                                 </a>
-                                <Tooltip id="git-page" />
+                                <Tooltip id="instagram-page" />
                             </div>
                         </div>
                     </div>
@@ -44,9 +45,10 @@ const Footer = () => {
                         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                             <div>
                                 <h3 className="text-[#2D3663] uppercase font-bold">Pages</h3>
-                                <a href="/about" className="block mt-2 text-sm text-[#2D3663]  hover:underline">About Us</a>
+                                <a href="/doctors" className="block mt-2 text-sm text-[#2D3663]  hover:underline">Doctors List</a>
                                 <a href="/all-tests" className="block mt-2 text-sm text-[#2D3663]  hover:underline">All Tests</a>
-                                <a href="/" className="block mt-2 text-sm text-[#2D3663]  hover:underline">Doctor Lists</a>
+                                <a href="/packages" className="block mt-2 text-sm text-[#2D3663]  hover:underline">Packages</a>
+                                <a href="/blog" className="block mt-2 text-sm text-[#2D3663]  hover:underline">Blogs</a>
                             </div>
 
                             <div>
@@ -59,7 +61,7 @@ const Footer = () => {
                             <div>
                                 <h3 className="text-[#2D3663] uppercase font-bold">Contact</h3>
                                 <span className="block mt-2 text-sm text-[#2D3663]  hover:underline">+1 234 567 999</span>
-                                <span className="block mt-2 text-sm text-[#2D3663]  hover:underline">healthchecklabs@gmail.com</span>
+                                <span className="block mt-2 text-sm text-[#2D3663]  hover:underline">vitalcare@gmail.com</span>
                             </div>
                         </div>
                     </div>

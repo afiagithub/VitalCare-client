@@ -35,7 +35,7 @@ const Statistics = () => {
                 <title>VitalCare | Statistics</title>
             </Helmet>
             <h1 className="text-4xl font-bold font-ubuntu text-center mb-10">Statistics</h1>
-            <div className="flex flex-row justify-between items-center">
+            <div className="flex flex-col lg:flex-row justify-between items-center gap-10 lg:gap-0">
                 <Barchart stats={stats}></Barchart>
                 <Piechart ratios={ratios}></Piechart>
             </div>

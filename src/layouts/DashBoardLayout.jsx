@@ -65,7 +65,10 @@ const DashBoardLayout = () => {
                         <hr />
                         <ul className="font-semibold space-y-2 font-ubuntu mt-4">
                             <li><Link to='/'>Home Page</Link></li>
-                            <li><Link>All Tests</Link></li>
+                            <li><Link to='/all-tests'>All Tests</Link></li>
+                            <li><Link to='/doctors'>Doctors List</Link></li>
+                            <li><Link to='/packages'>Packages</Link></li>
+                            <li><Link to='/blog'>Blogs</Link></li>
                         </ul>
                     </div>
                     <div>
@@ -102,7 +105,10 @@ const DashBoardLayout = () => {
                         <hr />
                         <ul className="font-semibold space-y-2 font-ubuntu mt-4">
                             <li><Link to='/'>Home Page</Link></li>
-                            <li><Link>All Tests</Link></li>
+                            <li><Link to='/all-tests'>All Tests</Link></li>
+                            <li><Link to='/doctors'>Doctors List</Link></li>
+                            <li><Link to='/packages'>Packages</Link></li>
+                            <li><Link to='/blog'>Blogs</Link></li>
                         </ul>
                     </div>
                     <div>

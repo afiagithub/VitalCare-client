@@ -8,8 +8,9 @@ const PromotionSection = () => {
                 Promoting various health related events throughout the year to
                 reach more people, provide medical care and raise awareness among public</p>
             <div className="container mx-auto space-y-12">
-                <div className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row">
-                    <img src="https://i.ibb.co/J2qjJr8/summer.jpg" alt="" className="h-80 dark:bg-gray-500 aspect-video" />
+                <div className="flex flex-col overflow-hidden rounded-md shadow-sm md:flex-row">
+                    <img src="https://i.ibb.co/J2qjJr8/summer.jpg" alt="" 
+                    className="h-80 md:h-96 lg:h-80 dark:bg-gray-500 aspect-video w-full md:w-1/2" />
                     <div className="flex flex-col justify-center flex-1 p-6 dark:bg-gray-50">
                         <span className="text-xs uppercase dark:text-gray-600">June 1, 2024 - August 31, 2024</span>
                         <h3 className="text-3xl font-bold">Summer Health Check-Up Special</h3>
@@ -20,9 +21,9 @@ const PromotionSection = () => {
                             <span className="font-bold text-blue-700">Price: $10</span> (Regular Price: $200)</p>
                     </div>
                 </div>
-                <div className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row-reverse">
+                <div className="flex flex-col overflow-hidden rounded-md shadow-sm md:flex-row lg:flex-row-reverse">
                     <img src="https://i.ibb.co/N1d6ngp/woman-health.jpg" 
-                    className="h-80 dark:bg-gray-500 aspect-video object-cover" />
+                    className="h-80 md:h-96 lg:h-80 dark:bg-gray-500 aspect-video object-cover w-full md:w-1/2" />
                     <div className="flex flex-col justify-center flex-1 p-6 dark:bg-gray-50">
                         <span className="text-xs uppercase dark:text-gray-600">October 1, 2024 - October 31, 2024</span>
                         <h3 className="text-3xl font-bold">Women's Health Awareness Month</h3>
@@ -35,8 +36,9 @@ const PromotionSection = () => {
                             <span className="font-bold text-blue-700">Price: $20 </span>(Regular Price: $225)</p>
                     </div>
                 </div>
-                <div className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row">
-                    <img src="https://i.ibb.co/YNhz7Dh/diabetes.jpg" alt="" className="h-80 dark:bg-gray-500 aspect-video" />
+                <div className="flex flex-col overflow-hidden rounded-md shadow-sm md:flex-row">
+                    <img src="https://i.ibb.co/YNhz7Dh/diabetes.jpg" alt="" 
+                    className="h-80 md:h-96 lg:h-80 dark:bg-gray-500 aspect-video w-full md:w-1/2" />
                     <div className="flex flex-col justify-center flex-1 p-6 dark:bg-gray-50">
                         <span className="text-xs uppercase dark:text-gray-600">March 1, 2024 - March 31, 2024</span>
                         <h3 className="text-3xl font-bold">Diabetes Awareness Campaign</h3>

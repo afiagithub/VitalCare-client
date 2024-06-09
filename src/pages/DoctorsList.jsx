@@ -29,7 +29,7 @@ const DoctorsList = () => {
                 Meet the dedicated and experienced healthcare professionals at VitalCare.
                 Our team of specialists is committed to providing top-quality care and personalized treatment
                 to meet your health needs.</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 place-items-center">
                 {
                     doctors.map(doc => <SingleDoctorCard key={doc._id} doc={doc}></SingleDoctorCard>)
                 }
