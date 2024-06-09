@@ -1,6 +1,15 @@
 # Website Name
 afia-b9a12-vitalcare-diagnostic-center-management-system
 
+# Admin username, password
+Afia Rahman
+
+# Admin email
+afia@rahman.com
+
+# Admin password
+123456Aa
+
 # Live Site URL
 https://diagnostic-app-auth.web.app/
 
