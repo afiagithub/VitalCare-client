@@ -1,7 +1,7 @@
 # Website Name
 afia-b9a12-vitalcare-diagnostic-center-management-system
 
-# Admin username, password
+# Admin username
 Afia Rahman
 
 # Admin email
